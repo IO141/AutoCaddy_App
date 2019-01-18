@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Hub">
+    tools:context=".fragments.HubFragment">
 
     <ImageView
         android:id="@+id/hub_title"
@@ -50,31 +50,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_connect"
         app:layout_constraintVertical_bias="0.0"/>
-
-    <Button
-        android:id="@+id/btn_dev"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="128dp"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/button_dev"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_help"
-        app:layout_constraintVertical_bias="0.0"/>
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="@string/development_info"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

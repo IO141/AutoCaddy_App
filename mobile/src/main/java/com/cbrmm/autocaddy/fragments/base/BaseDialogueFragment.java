@@ -1,11 +1,11 @@
 package com.cbrmm.autocaddy.fragments.base;
 
-import android.app.Fragment;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseDialogueFragment extends DialogFragment {
 	
 	/**
 	 * Gets the layout ID of this fragment.

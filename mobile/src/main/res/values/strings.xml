@@ -1,3 +1,43 @@
 <resources>
-    <string name="app_name">AutoCaddy</string>
+    <string name="app_name">AutoCaddy Control</string>
+
+    <string name="hub_title_desc">AutoCaddy Control</string>
+
+    <string name="button_connect">Connect</string>
+    <string name="button_disconnect">Disonnect</string>
+    <string name="button_help">Help</string>
+    <string name="button_return">Return</string>
+    <string name="button_stay">Stay</string>
+    <string name="button_contact">Contact the \nDevelopers</string>
+    <string name="button_dev">Developer Hub</string>
+
+    <string name="spinner_schemes">Control Schemes</string>
+
+    <string name="txt_help_Q1">What is?</string>
+    <string name="txt_help_Q2">What do?</string>
+    <string name="txt_help_Q3">What now?</string>
+    <string name="txt_help_Q4">What next?</string>
+
+    <string name="txt_help_A1">AutoCaddy control application.</string>
+    <string name="txt_help_A2">Control an AutoCaddy.</string>
+    <string name="txt_help_A3">Press CONNECT.</string>
+    <string name="txt_help_A4">Select a control scheme.</string>
+
+    <string name="prec_settings">Precision Settings</string>
+    <string name="bin_settings">Binary Settings</string>
+    <string name="chk_settings">Check Settings</string>
+
+    <string name="sett_3">Sett 3</string>
+    <string name="sett_4">Sett 4</string>
+    <string name="sett_5">Sett 5</string>
+    <string name="sett_6">Sett 6</string>
+    <string name="sett_6a">Sett 6A</string>
+    <string name="sett_6b">Sett 6B</string>
+    <string name="sett_6c">Sett 6C</string>
+
+    <string name="development_info">Development Build v0.1</string>
+    <string name="sett_2">Sett 2</string>
+    <string name="sett_1">Sett 1</string>
+    <string name="go">Go</string>
+
 </resources>

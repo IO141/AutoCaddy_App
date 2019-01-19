@@ -1,4 +1,7 @@
 package com.cbrmm.autocaddy.ui;
 
-public class Dev {
+import android.support.v7.app.AppCompatActivity;
+
+
+public class Dev extends AppCompatActivity {
 }

@@ -5,14 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.cbrmm.autocaddy.R;
+import com.cbrmm.autocaddy.driver.AC_Interface;
 import com.cbrmm.autocaddy.fragments.ControlDataFragment;
 import com.cbrmm.autocaddy.fragments.ControlSchemeFragment;
-import com.cbrmm.autocaddy.fragments.base.BaseFragment;
-
-import java.util.Arrays;
+import com.cbrmm.autocaddy.util.FragUtils;
 
 
-public class Control extends AppCompatActivity {
+public class Control extends AppCompatActivity implements FragUtils {
 	
 	private ControlSchemeFragment fragmentCS;
 	private ControlDataFragment fragmentCD;
@@ -31,7 +30,7 @@ public class Control extends AppCompatActivity {
 	 * @param savedInstanceState - A Bundle containing the activity's previously saved state.
 	 */
 	private void initFragmentViews(Bundle savedInstanceState) {
-		Bundle defaults = new Bundle();
+		Bundle defaults = getDefaultFragmentState();
 		if(savedInstanceState == null) {
 			fragmentCS = new ControlSchemeFragment();
 			fragmentCD = new ControlDataFragment();
@@ -39,27 +38,30 @@ public class Control extends AppCompatActivity {
 			fragmentCS.setArguments(defaults);
 			fragmentCD.setArguments(defaults);
 			
-			setFragmentViewState(fragmentCS, R.id.control_scheme_container, true);
+			setFragmentViewState(this, fragmentCS, R.id.control_scheme_container, true);
 		}
 	}
 	
 	/**
-	 * This helper method handles the FragmentTransaction required to change the fragment
-	 * in each container view and updates chartFrag.
-	 *
-	 * @param baseFrag The fragment whose state is to be changed.
-	 * @param layoutID The view where the baseFrag is or is to be removed from.
-	 * @param add True if adding baseFrag to a view, false if removing it.
+	 * Sets the default state of each fragment so that they can be displayed in each container
+	 * layout without crashing the app.
+	 * @return A new Bundle containing the default state of each fragment in this activity.
 	 */
-	private void setFragmentViewState(BaseFragment baseFrag, int layoutID, boolean add) {
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		if(add) {
-			transaction.add(layoutID, baseFrag).commit();
-			
-		} else {
-			transaction.remove(baseFrag);
-			transaction.addToBackStack(null);
-			transaction.commit();
-		}
+	@Override
+	public Bundle getDefaultFragmentState() {
+		Bundle args = new Bundle();
+		
+		//ControlScheme
+		int[] sett1to2 = new int[2]; //Init to 0
+		boolean[] sett3to5 = new boolean[3]; //Init to false
+		boolean[] sett6AtoC = new boolean[3]; //Init to false
+		
+		args.putIntArray(ControlSchemeFragment.CS_KEY__PREC_SETTS, sett1to2);
+		args.putBooleanArray(ControlSchemeFragment.CS_KEY__BIN_SETTS, sett3to5);
+		args.putBooleanArray(ControlSchemeFragment.CS_KEY__CHK_SETTS, sett6AtoC);
+		
+		//ControlData
+		
+		return args;
 	}
 }

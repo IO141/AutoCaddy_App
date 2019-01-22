@@ -11,7 +11,7 @@ import com.cbrmm.autocaddy.ui.Control;
 
 import butterknife.BindView;
 
-
+//TODO Make into overlay frag, move curr functionality to Help activity
 public class HelpFragment extends BaseFragment {
 	
 	private final String TAG = ":HelpFrag:";
@@ -26,7 +26,7 @@ public class HelpFragment extends BaseFragment {
 	
 	@Override
 	protected void initUIState(Bundle args) {
-	
+		initClickOnTouch();
 	}
 	
 	private void initClickOnTouch() {

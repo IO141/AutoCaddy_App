@@ -105,6 +105,7 @@ public class Hub extends AppCompatActivity {
 			btnDev.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.INVISIBLE : View.VISIBLE);
 		} else if(mDevCount >= DEV_CNT) {
 			btnDev.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+			mDevTime = 0;
 		}
 	}
 }

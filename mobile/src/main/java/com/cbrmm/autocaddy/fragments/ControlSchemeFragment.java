@@ -7,11 +7,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Switch;
 
 import com.cbrmm.autocaddy.R;
-import com.cbrmm.autocaddy.driver.AC_Interface;
 import com.cbrmm.autocaddy.fragments.base.BaseSubPanelFragment;
 import com.cbrmm.autocaddy.util.Scheme;
 
@@ -21,20 +19,16 @@ import java.util.Objects;
 
 import butterknife.BindView;
 
+import static com.cbrmm.autocaddy.driver.AC_Interface.*;
+
 
 public class ControlSchemeFragment extends BaseSubPanelFragment {
 	
-	private final String KEY_SETT1 = AC_Interface.AC_KEY__SETT1;
-	private final String KEY_SETT2 = AC_Interface.AC_KEY__SETT2;
-	private final String KEY_SETT3 = AC_Interface.AC_KEY__SETT3;
-	private final String KEY_SETT4 = AC_Interface.AC_KEY__SETT4;
-	private final String KEY_SETT5 = AC_Interface.AC_KEY__SETT5;
-	private final String KEY_SETT6A = AC_Interface.AC_KEY__SETT6A;
-	private final String KEY_SETT6B = AC_Interface.AC_KEY__SETT6B;
-	private final String KEY_SETT6C = AC_Interface.AC_KEY__SETT6C;
+	public static final String CS_KEY__PREC_SETTS = "Precision Settings";
+	public static final String CS_KEY__BIN_SETTS = "Binary Settings";
+	public static final String CS_KEY__CHK_SETTS = "Check Settings";
 	
 	private ArrayList<Scheme> schemes = new ArrayList<>();
-	
 	private ArrayAdapter<String> schemesAdapter;
 	
 	@BindView(R.id.spin_schemes) Spinner spinSchemes;
@@ -69,20 +63,24 @@ public class ControlSchemeFragment extends BaseSubPanelFragment {
 	protected void initSubPanel(Bundle args) {
 		HashMap<String, Object> settings = new HashMap<>();
 		
-		settings.put(KEY_SETT1, 0);
-		settings.put(KEY_SETT2, 0);
-		settings.put(KEY_SETT3, false);
-		settings.put(KEY_SETT4, false);
-		settings.put(KEY_SETT5, false);
-		settings.put(KEY_SETT6A, "6A");
-		settings.put(KEY_SETT6B, "6B");
-		settings.put(KEY_SETT6C, "6C");
+		int[] prec = Objects.requireNonNull(args.getIntArray(CS_KEY__PREC_SETTS));
+		boolean[] bin = Objects.requireNonNull(args.getBooleanArray(CS_KEY__BIN_SETTS));
+		boolean[] chk = Objects.requireNonNull(args.getBooleanArray(CS_KEY__CHK_SETTS));
+		
+		settings.put(AC_KEY__SETT1, prec[0]);
+		settings.put(AC_KEY__SETT2, prec[1]);
+		settings.put(AC_KEY__SETT3, bin[0]);
+		settings.put(AC_KEY__SETT4, bin[1]);
+		settings.put(AC_KEY__SETT5, bin[2]);
+		settings.put(AC_KEY__SETT6A, chk[0]);
+		settings.put(AC_KEY__SETT6B, chk[1]);
+		settings.put(AC_KEY__SETT6C, chk[2]);
 		
 		currScheme = new Scheme("Default", settings);
 	}
 	
 	private void initSpinSchemes() {
-		FragmentActivity frag =  Objects.requireNonNull((FragmentActivity) getActivity());
+		FragmentActivity frag =  Objects.requireNonNull(getActivity());
 		ArrayList<String> spinDef = new ArrayList<>();
 		
 		spinDef.add("Default");

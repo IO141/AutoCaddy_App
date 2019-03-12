@@ -8,8 +8,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.Arrays;
+
 import static com.cbrmm.autocaddy.ui.Control.validSettings;
 import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -64,7 +67,7 @@ public class DataUnitTest {
 		assertNotNull(assignData);
 		assignData.put(validSettings[0], 0);
 		assertEquals(0, assignData.getInt(validSettings[0]));
-		assertEquals(8, assignData.getDataLen());
+		assertEquals(7, assignData.getDataLen());
 	}
 	
 	@Test
@@ -80,7 +83,7 @@ public class DataUnitTest {
 				assertFalse(assignData.getBool(validSettings[0]));
 			}
 		}
-		assertEquals(22, assignData.getDataLen());
+		assertEquals(20, assignData.getDataLen());
 	}
 	
 	@Rule
@@ -126,9 +129,11 @@ public class DataUnitTest {
 		
 		assertNotEquals(arr, defaultData.getDataArr());
 		defaultData.setDataArr(arr);
-		assertEquals(arr, defaultData.getDataArr());
+		
+		boolean equal = Arrays.equals(arr, defaultData.getDataArr());
+		assertTrue(equal);
 		assertNotEquals(origData.getInt(validSettings[0]), defaultData.getInt(validSettings[0]));
-		assertNotEquals(origData.getBool(validSettings[7]), defaultData.getBool(validSettings[7]));
+		assertNotEquals(origData.getBool(validSettings[6]), defaultData.getBool(validSettings[6]));
 		assertEquals(origData.getDataLen(), defaultData.getDataLen());
 	}
 	

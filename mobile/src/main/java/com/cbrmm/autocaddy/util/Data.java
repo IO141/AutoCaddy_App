@@ -23,6 +23,9 @@ public class Data {
 	private static final Set<String> orderedKeys = new LinkedHashSet<>(Arrays.asList(Control.validSettings));
 	private static final String[] orderedKeysArr = orderedKeys.toArray(new String[orderedKeys.size()]);
 	
+	private final int INT_LENGTH = 7;
+	private final int BOOL_LENGTH = 1;
+	
 	private byte[][] data = new byte[10][];
 	private int dataLen;
 	
@@ -41,8 +44,8 @@ public class Data {
 		
 		for(int i = 0; i < orderedKeysArr.length; i++) {
 			if(Objects.equals(setting, orderedKeysArr[i])) {
-				if(data[i] == null) dataLen += 8;
-				data[i] = ByteBuffer.allocate(7).order(ByteOrder.LITTLE_ENDIAN).putInt(value).array();
+				if(data[i] == null) dataLen += INT_LENGTH;
+				data[i] = ByteBuffer.allocate(INT_LENGTH).order(ByteOrder.LITTLE_ENDIAN).putInt(value).array();
 				break;
 			}
 		}
@@ -54,20 +57,23 @@ public class Data {
 		
 		for(int i = 0; i < orderedKeysArr.length; i++) {
 			if(Objects.equals(setting, orderedKeysArr[i])) {
-				if(data[i] == null) dataLen += 1;
-				data[i] = ByteBuffer.allocate(1).put((byte) (value ? 1:0)).array();
+				if(data[i] == null) dataLen += BOOL_LENGTH;
+				data[i] = ByteBuffer.allocate(BOOL_LENGTH).put((byte) (value ? 1:0)).array();
 				break;
 			}
 		}
 	}
 	
+	//Returns value of int setting
+	//If setting is 0 or dne, returns 0
 	public int getInt(String setting) {
 		if(!orderedKeys.contains(setting))
 			throw new IllegalArgumentException("Setting must be valid.");
 		
 		for(int i = 0; i < orderedKeysArr.length; i++) {
 			if(Objects.equals(setting, orderedKeysArr[i])) {
-				return ByteBuffer.wrap(data[i]).order(ByteOrder.LITTLE_ENDIAN).getInt();
+				return data[i] == null ?
+						0:ByteBuffer.wrap(data[i]).order(ByteOrder.LITTLE_ENDIAN).getInt();
 			}
 		}
 		
@@ -75,18 +81,20 @@ public class Data {
 		throw new NullPointerException();
 	}
 	
+	//Returns value of bool setting
+	//If setting is false or dne, returns false
 	public boolean getBool(String setting) {
 		if(!orderedKeys.contains(setting))
 			throw new IllegalArgumentException("Setting must be valid.");
 		
 		for(int i = 0; i < orderedKeysArr.length; i++) {
 			if(Objects.equals(setting, orderedKeysArr[i])) {
-				return ByteBuffer.wrap(data[i]).order(ByteOrder.LITTLE_ENDIAN).get() == 1;
+				return data[i] != null && ByteBuffer.wrap(data[i]).order(ByteOrder.LITTLE_ENDIAN).get() == 1;
 			}
 		}
 		
-		Log.wtf(TAG, "Data not read");
-		throw new NullPointerException();
+		Log.e(TAG, "Data not read");
+		return false;
 	}
 	
 	public String getTitle() {

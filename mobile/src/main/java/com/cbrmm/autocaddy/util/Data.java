@@ -62,12 +62,16 @@ public class Data {
 	 * Puts a new value for a setting in the data array, overwriting the previous
 	 * one.
 	 * @param setting The name of the setting whose value is being changed.
-	 * @param value The new value of the setting. If not of type Boolean, Integer,
-	 * or Float, no value will be written.
+	 * @param value The new value of the setting. If not of type Boolean, Short,
+	 * Float, or Double, no value will be written.
 	 */
 	public void put(String setting, Object value) {
 		if(!Arrays.asList(keys).contains(setting)) {
-			Log.e(TAG, "Invalid setting", new IllegalArgumentException());
+			Log.w(TAG, "Invalid setting.", new IllegalArgumentException());
+			return;
+		}
+		if(value == null) {
+			Log.w(TAG, "Value is null.", new IllegalArgumentException());
 			return;
 		}
 		
@@ -85,139 +89,17 @@ public class Data {
 		byte[] bytes;
 		if(value instanceof Boolean) {
 			bytes = toBytes((boolean) value);
-		} else if(value instanceof Integer) {
-			bytes = toBytes((int) value);
+		} else if(value instanceof Short) {
+			bytes = toBytes((short) value);
 		} else if(value instanceof Float) {
 			bytes = toBytes((float) value);
+		} else if(value instanceof Double) {
+			bytes = toBytes((double) value);
 		} else {
 			bytes = new byte[0];
 		}
 		
 		System.arraycopy(bytes, 0, this.data[index], SIGNAL_LENGTH, bytes.length);
-	}
-	
-	/**
-	 * Gets the boolean value of a setting.
-	 * @param setting The name of the setting whose value is returned.
-	 * @return The boolean value of the setting. Returns false if the setting does not
-	 * have a boolean value or if it does not exist.
-	 */
-	public boolean getBool(String setting) {
-		if(!Arrays.asList(keys).contains(setting)) {
-			Log.e(TAG, "Invalid setting", new IllegalArgumentException());
-			return false;
-		}
-		
-		int index = Arrays.asList(keys).indexOf(setting);
-		return this.data[index].length - SIGNAL_LENGTH == keySizes.length
-				&& toBool(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
-	}
-	
-	/**
-	 * Gets the integer value of a setting.
-	 * @param setting The name of the setting whose value is returned.
-	 * @return The integer value of the setting. Returns 0 if the setting does not have
-	 * an integer value or if it does not exist.
-	 */
-	public int getInt(String setting) {
-		if(!Arrays.asList(keys).contains(setting)) {
-			Log.e(TAG, "Invalid setting", new IllegalArgumentException());
-			return 0;
-		}
-		
-		int index = Arrays.asList(keys).indexOf(setting);
-		if(this.data[index].length - SIGNAL_LENGTH != keySizes.length) return 0;
-		return toInt(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
-	}
-	
-	/**
-	 * Gets the float value of a setting.
-	 * @param setting The name of the setting whose value is returned.
-	 * @return The float value of the setting. Returns 0 if the setting does not have
-	 * a float value or if it does not exist.
-	 */
-	public float getFloat(String setting) {
-		if(!Arrays.asList(keys).contains(setting)) {
-			Log.e(TAG, "Invalid setting", new IllegalArgumentException());
-			return 0f;
-		}
-		
-		int index = Arrays.asList(keys).indexOf(setting);
-		if(this.data[index].length - SIGNAL_LENGTH != keySizes.length) return 0f;
-		return toFloat(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
-	}
-	
-	/**
-	 * Converts an array of characters into an array of bytes.
-	 * @param chars The character array to be converted.
-	 * @return A byte array representation of chars.
-	 */
-	private static byte[] toBytes(char[] chars) {
-		return new String(chars).getBytes(StandardCharsets.UTF_8);
-	}
-	
-	/**
-	 * Converts a boolean into an array of bytes.
-	 * @param bool The boolean to be converted.
-	 * @return A byte array representation of bool.
-	 */
-	private static byte[] toBytes(boolean bool) {
-		byte val = (byte) (bool ? 1:0);
-		return ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).put(val).array();
-	}
-	
-	/**
-	 * Converts an integer into an array of bytes.
-	 * @param num The integer to be converted.
-	 * @return A byte array representation of num.
-	 */
-	private static byte[] toBytes(int num) {
-		return ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putInt(num).array();
-	}
-	
-	/**
-	 * Converts a float into an array of bytes.
-	 * @param num The float to be converted.
-	 * @return A byte array representation of num.
-	 */
-	private static byte[] toBytes(float num) {
-		return ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putFloat(num).array();
-	}
-	
-	/**
-	 * Converts a byte array into a boolean.
-	 * @param bytes The byte array to be converted.
-	 * @return A boolean representation of bytes.
-	 */
-	private static boolean toBool(byte[] bytes) {
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).get() == 1;
-	}
-	
-	/**
-	 * Converts a byte array into an array of characters.
-	 * @param bytes The byte array to be converted.
-	 * @return A char array representation of bytes.
-	 */
-	private static char[] toChar(byte[] bytes) {
-		return new String(bytes).toCharArray();
-	}
-	
-	/**
-	 * Converts a byte array into an integer.
-	 * @param bytes The byte array to be converted.
-	 * @return An integer representation of bytes.
-	 */
-	private static int toInt(byte[] bytes) {
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getInt();
-	}
-	
-	/**
-	 * Converts a byte array into a float.
-	 * @param bytes The byte array to be converted.
-	 * @return A float representation of bytes.
-	 */
-	private static float toFloat(byte[] bytes) {
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getFloat();
 	}
 	
 	/**
@@ -249,17 +131,95 @@ public class Data {
 		}
 		
 		int k = 0;
-		byte[] signalNew, signalOld = new byte[] {data[0][0], data[0][1], data[0][2], data[0][3]};
+		byte[] tempArr, signalNew, signalOld = new byte[] {data[0][0], data[0][1], data[0][2], data[0][3]};
 		for(int i = 0; i < data.length; i++) {
 			signalNew = new byte[] {dataArr[k], dataArr[k + 1], dataArr[k + 2], dataArr[k + 3]};
 			if(!Arrays.equals(signalOld, signalNew)) put(keys[i], 0);
 			else {
+				tempArr = new byte[data[i].length - SIGNAL_LENGTH];
 				for(int j = 0; j < data[i].length; j++, k++) {
-					if(j < 4) continue;
-					data[i][j] = dataArr[k];
+					if(j < SIGNAL_LENGTH) continue;
+					tempArr[j-SIGNAL_LENGTH] = dataArr[k];
+				}
+				if(tempArr.length == 1) {
+					put(keys[i], toBool(tempArr));
+				} else if(tempArr.length == 2) {
+					put(keys[i], toShort(tempArr));
+				} else if(tempArr.length == 4) {
+					put(keys[i], toFloat(tempArr));
+				} else if(tempArr.length == 8) {
+					put(keys[i], toDouble(tempArr));
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Gets the boolean value of a setting.
+	 * @param setting The name of the setting whose value is returned.
+	 * @return The boolean value of the setting. Returns false if the setting does not
+	 * have a boolean value or if it does not exist.
+	 */
+	public boolean getBool(String setting) {
+		if(!Arrays.asList(keys).contains(setting)) {
+			Log.e(TAG, "Invalid setting.", new IllegalArgumentException());
+			return false;
+		}
+		
+		int index = Arrays.asList(keys).indexOf(setting);
+		return this.data[index].length - SIGNAL_LENGTH == keySizes.length
+				&& toBool(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
+	}
+	
+	/**
+	 * Gets the short value of a setting.
+	 * @param setting The name of the setting whose value is returned.
+	 * @return The short value of the setting. Returns 0 if the setting does not have
+	 * a short value or if it does not exist.
+	 */
+	public short getShort(String setting) {
+		if(!Arrays.asList(keys).contains(setting)) {
+			Log.e(TAG, "Invalid setting.", new IllegalArgumentException());
+			return 0;
+		}
+		
+		int index = Arrays.asList(keys).indexOf(setting);
+		if(this.data[index].length - SIGNAL_LENGTH != keySizes[index]) return 0;
+		return toShort(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
+	}
+	
+	/**
+	 * Gets the float value of a setting.
+	 * @param setting The name of the setting whose value is returned.
+	 * @return The float value of the setting. Returns 0 if the setting does not have
+	 * a float value or if it does not exist.
+	 */
+	public float getFloat(String setting) {
+		if(!Arrays.asList(keys).contains(setting)) {
+			Log.e(TAG, "Invalid setting.", new IllegalArgumentException());
+			return 0f;
+		}
+		
+		int index = Arrays.asList(keys).indexOf(setting);
+		if(this.data[index].length - SIGNAL_LENGTH != keySizes.length) return 0f;
+		return toFloat(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
+	}
+	
+	/**
+	 * Gets the double value of a setting.
+	 * @param setting The name of the setting whose value is returned.
+	 * @return The double value of the setting. Returns 0 if the setting does not have
+	 * a double value or if it does not exist.
+	 */
+	public double getDouble(String setting) {
+		if(!Arrays.asList(keys).contains(setting)) {
+			Log.e(TAG, "Invalid setting.", new IllegalArgumentException());
+			return 0f;
+		}
+		
+		int index = Arrays.asList(keys).indexOf(setting);
+		if(this.data[index].length - SIGNAL_LENGTH != keySizes.length) return 0f;
+		return toDouble(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
 	}
 	
 	/**
@@ -268,6 +228,97 @@ public class Data {
 	 */
 	public String getName() {
 		return this.name;
+	}
+	
+	/**
+	 * Converts an array of characters into an array of bytes.
+	 * @param chars The character array to be converted.
+	 * @return A byte array representation of chars.
+	 */
+	private static byte[] toBytes(char[] chars) {
+		return new String(chars).getBytes(StandardCharsets.UTF_8);
+	}
+	
+	/**
+	 * Converts a boolean into an array of bytes.
+	 * @param bool The boolean to be converted.
+	 * @return A byte array representation of bool.
+	 */
+	private static byte[] toBytes(boolean bool) {
+		byte val = (byte) (bool ? 1:0);
+		return ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).put(val).array();
+	}
+	
+	/**
+	 * Converts a short into an array of bytes.
+	 * @param num The short to be converted.
+	 * @return A byte array representation of num.
+	 */
+	private static byte[] toBytes(short num) {
+		return ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN).putShort(num).array();
+	}
+	
+	/**
+	 * Converts a float into an array of bytes.
+	 * @param num The float to be converted.
+	 * @return A byte array representation of num.
+	 */
+	private static byte[] toBytes(float num) {
+		return ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putFloat(num).array();
+	}
+	
+	/**
+	 * Converts a double into an array of bytes.
+	 * @param num The double to be converted.
+	 * @return A byte array representation of num.
+	 */
+	private static byte[] toBytes(double num) {
+		return ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN).putDouble(num).array();
+	}
+	
+	/**
+	 * Converts a byte array into a boolean.
+	 * @param bytes The byte array to be converted.
+	 * @return A boolean representation of bytes.
+	 */
+	private static boolean toBool(byte[] bytes) {
+		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).get() == 1;
+	}
+	
+	/**
+	 * Converts a byte array into an array of characters.
+	 * @param bytes The byte array to be converted.
+	 * @return A char array representation of bytes.
+	 */
+	private static char[] toChar(byte[] bytes) {
+		return new String(bytes).toCharArray();
+	}
+	
+	/**
+	 * Converts a byte array into a short.
+	 * @param bytes The byte array to be converted.
+	 * @return A short representation of bytes.
+	 */
+	private static short toShort(byte[] bytes) {
+		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getShort();
+	}
+	
+	/**
+	 * Converts a byte array into a float.
+	 * @param bytes The byte array to be converted.
+	 * @return A float representation of bytes.
+	 */
+	private static float toFloat(byte[] bytes) {
+		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getFloat();
+	}
+	
+	/**
+	 * Converts a byte array into a double.
+	 * @param bytes The byte array to be converted.
+	 * @return A double representation of bytes.
+	 */
+	private static double toDouble(byte[] bytes) {
+		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getDouble();
 	}
 	
 	@Override

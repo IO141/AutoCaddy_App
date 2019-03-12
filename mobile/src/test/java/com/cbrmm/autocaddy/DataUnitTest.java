@@ -13,6 +13,7 @@ import java.util.Arrays;
 import static com.cbrmm.autocaddy.ui.Control.validSettings;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,9 +28,10 @@ public class DataUnitTest {
 	@Before
 	public void setUp() {
 		nullData = null;
-		assignData = initData(assignTitle, 0);
-		defaultData = initData(defTitle, 7);
-		origData = initData(origTitle, 7);
+		initData = null;
+		assignData = new Data(assignTitle);
+		defaultData = new Data(defTitle);
+		origData = new Data(origTitle);
 	}
 	
 	@After
@@ -47,90 +49,81 @@ public class DataUnitTest {
 	}
 	
 	@Test
-	public void makeData() {
-		assertNull(nullData);
+	public void initData() {
 		assertNotNull(assignData);
 		assertNotNull(defaultData);
 		assertNotNull(origData);
+		
+		assertEquals(assignTitle, assignData.getName());
+		assertEquals(defTitle, defaultData.getName());
+		assertEquals(origTitle, origData.getName());
 	}
 	
 	@Test
-	public void initData() {
-		assertNull(initData);
-		initData = new Data(initTitle);
-		assertNotNull(initData);
-		assertEquals(initTitle, initData.getName());
-	}
-	
-	@Test
-	public void assignData1() {
+	public void assignData() {
 		assertNotNull(assignData);
-		assignData.put(validSettings[0], 0);
-		assertEquals(0, assignData.getInt(validSettings[0]));
+		assignData.put(validSettings[0], (short) 0);
+		assertEquals(0, assignData.getShort(validSettings[0]));
 	}
-	
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
 	
 	@Test
 	public void putBadData() {
 		assertNotNull(defaultData);
-		//arrange
-		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Setting must be valid.");
-		//act
-		defaultData.put("Bad Setting", 0);
-	}
-	
-	@Test
-	public void getBadIntData() {
-		assertNotNull(defaultData);
-		//arrange
-		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Setting must be valid.");
-		//act
-		defaultData.getInt("Bad Setting");
+		defaultData.put("Bad Setting", 1);
+		assertArrayEquals(defaultData.getDataArr(), origData.getDataArr());
 	}
 	
 	@Test
 	public void getBadBoolData() {
 		assertNotNull(defaultData);
-		//arrange
-		thrown.expect(IllegalArgumentException.class);
-		thrown.expectMessage("Setting must be valid.");
-		//act
-		defaultData.getBool("Bad Setting");
+		assertFalse(defaultData.getBool("Bad setting"));
 	}
 	
 	@Test
-	public void setDataArr() {
+	public void getBadShortData() {
 		assertNotNull(defaultData);
+		assertTrue(defaultData.getShort("Bad setting") == 0);
+	}
+	
+	@Test
+	public void getBadFloatData() {
+		assertNotNull(defaultData);
+		assertTrue(defaultData.getFloat("Bad setting") == 0f);
+	}
+	
+	@Test
+	public void setDataArr1() {
+		assertNotNull(defaultData);
+		assertNotNull(origData);
 		assertNotEquals(defaultData.getName(), origData.getName());
 		
 		byte[] arr = defaultData.getDataArr();
 		for(int i = 0; i < arr.length; i++) arr[i] = 1;
 		
-		assertNotEquals(arr, defaultData.getDataArr());
+		assertFalse(Arrays.equals(arr, defaultData.getDataArr()));
 		defaultData.setDataArr(arr);
 		
 		int last = validSettings.length - 1;
 		boolean equal = Arrays.equals(arr, defaultData.getDataArr());
-		assertTrue(equal);
-		assertNotEquals(origData.getInt(validSettings[0]), defaultData.getInt(validSettings[0]));
-		assertNotEquals(origData.getBool(validSettings[last]), defaultData.getBool(validSettings[last]));
+		assertFalse(equal);
 	}
 	
-	private Data initData(String name, int num) {
-		Data data = new Data(name);
+	@Test
+	public void setDataArr2() {
+		assertNotNull(defaultData);
+		assertNotNull(assignData);
+		assertNotNull(origData);
 		
-		if(num > 0) {
-			num = num > validSettings.length ? validSettings.length:num;
-			for(int i = 0; i < num; i++) {
-				if(i < 2) data.put(validSettings[i], 0);
-				else data.put(validSettings[i], false);
-			}
-		}
+		assignData.put(validSettings[0], (short) 1);
+		byte[] arr = assignData.getDataArr();
 		
-		return data;
+		defaultData.setDataArr(arr);
+		assertArrayEquals(defaultData.getDataArr(), assignData.getDataArr());
+		
+		int last = validSettings.length - 1;
+		boolean equal = Arrays.equals(arr, defaultData.getDataArr());
+		assertTrue(equal);
+		
+		assertNotEquals(origData.getShort(validSettings[0]), defaultData.getShort(validSettings[0]));
 	}
 }

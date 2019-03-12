@@ -23,7 +23,7 @@ public class Data {
 	private static final Set<String> orderedKeys = new LinkedHashSet<>(Arrays.asList(Control.validSettings));
 	private static final String[] orderedKeysArr = orderedKeys.toArray(new String[orderedKeys.size()]);
 	
-	private final int INT_LENGTH = 7;
+	private final int INT_LENGTH = 8;
 	private final int BOOL_LENGTH = 1;
 	
 	private byte[][] data = new byte[10][];

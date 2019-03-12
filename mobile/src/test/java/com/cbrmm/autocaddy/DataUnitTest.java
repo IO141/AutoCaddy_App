@@ -67,23 +67,6 @@ public class DataUnitTest {
 		assertNotNull(assignData);
 		assignData.put(validSettings[0], 0);
 		assertEquals(0, assignData.getInt(validSettings[0]));
-		assertEquals(7, assignData.getDataLen());
-	}
-	
-	@Test
-	public void assignData2() {
-		assertNotNull(assignData);
-		for(int i = 0; i < 8; i++) {
-			if(i < 2) {
-				assignData.put(validSettings[i], 0);
-				assertEquals(0, assignData.getInt(validSettings[0]));
-			}
-			else {
-				assignData.put(validSettings[i], false);
-				assertFalse(assignData.getBool(validSettings[0]));
-			}
-		}
-		assertEquals(20, assignData.getDataLen());
 	}
 	
 	@Rule
@@ -130,10 +113,11 @@ public class DataUnitTest {
 		assertNotEquals(arr, defaultData.getDataArr());
 		defaultData.setDataArr(arr);
 		
+		int last = validSettings.length - 1;
 		boolean equal = Arrays.equals(arr, defaultData.getDataArr());
 		assertTrue(equal);
 		assertNotEquals(origData.getInt(validSettings[0]), defaultData.getInt(validSettings[0]));
-		assertNotEquals(origData.getBool(validSettings[6]), defaultData.getBool(validSettings[6]));
+		assertNotEquals(origData.getBool(validSettings[last]), defaultData.getBool(validSettings[last]));
 		assertEquals(origData.getDataLen(), defaultData.getDataLen());
 	}
 	
@@ -141,7 +125,7 @@ public class DataUnitTest {
 		Data data = new Data(name);
 		
 		if(num > 0) {
-			num = num > 7 ? 7:num;
+			num = num > validSettings.length ? validSettings.length:num;
 			for(int i = 0; i < num; i++) {
 				if(i < 2) data.put(validSettings[i], 0);
 				else data.put(validSettings[i], false);

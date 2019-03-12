@@ -12,8 +12,7 @@ import com.cbrmm.autocaddy.util.FragUtils;
 
 public class Control extends AppCompatActivity implements FragUtils {
 	
-	public static final String[] validSettings = {"Sett1", "Sett2", "Sett3", "Sett4", "Sett5",
-			"Sett6", "Sett7", "Sett8", "Sett9", "Sett10"};
+	public static final String[] validSettings = {"Speed", "Turn", "Accelerometer", "GPS"};
 	
 	public static final String C_KEY__MODEL = "Primary Data Model";
 	

@@ -11,12 +11,12 @@ import com.cbrmm.autocaddy.ui.Control;
 
 import butterknife.BindView;
 
-//TODO Make into overlay frag, move curr functionality to Help activity
+@Deprecated
 public class HelpFragment extends BaseFragment {
 	
 	private final String TAG = ":HelpFrag:";
 	
-	@BindView(R.id.btn_connect2) Button btnConnect;
+	@BindView(R.id.btn_return) Button btnConnect;
 	@BindView(R.id.btn_contact) Button btnContact;
 	
 	@Override
@@ -34,7 +34,7 @@ public class HelpFragment extends BaseFragment {
 			@Override
 			public void onClick(View view) {
 				switch(view.getId()) {
-					case R.id.btn_connect2:
+					case R.id.btn_return:
 						startControl();
 						break;
 					case R.id.btn_contact:

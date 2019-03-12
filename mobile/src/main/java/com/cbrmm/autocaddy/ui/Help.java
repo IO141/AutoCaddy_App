@@ -1,23 +1,22 @@
 package com.cbrmm.autocaddy.ui;
 
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.cbrmm.autocaddy.R;
-import com.cbrmm.autocaddy.fragments.HelpFragment;
-import com.cbrmm.autocaddy.util.FragUtils;
-
-import butterknife.BindView;
 
 
-public class Help extends AppCompatActivity implements FragUtils {
+public class Help extends AppCompatActivity {
 	
-	private final String TAG = ":Help:";
+	private final String TAG = "Help";
 	
-	private HelpFragment fragmentH;
+	private ScrollView helpView;
+	private LinearLayout overlayView;
 	
 	private Button btnConnect;
 	private Button btnContact;
@@ -26,8 +25,6 @@ public class Help extends AppCompatActivity implements FragUtils {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_help);
-		
-		initFragmentViews(savedInstanceState);
 	}
 	
 	@Override
@@ -36,42 +33,34 @@ public class Help extends AppCompatActivity implements FragUtils {
 		initUI();
 	}
 	
-	@Override
-	public Bundle getDefaultFragmentState() {
-		return new Bundle();
-	}
-	
-	/**
-	 * Initializes each fragment view if they have not been before, sets their default state, and
-	 * populates this activity's layout with them.
-	 * @param savedInstanceState - A Bundle containing the activity's previously saved state.
-	 */
-	private void initFragmentViews(Bundle savedInstanceState) {
-		Bundle defaults = getDefaultFragmentState();
-		if(savedInstanceState == null) {
-			fragmentH = new HelpFragment();
-			
-			fragmentH.setArguments(defaults);
-
-//			setFragmentViewState(this, fragmentH, R.id.help_base_container, true);
-		}
-	}
-	
 	private void initUI() {
-		btnConnect = findViewById(R.id.btn_connect2);
+		
+		helpView = findViewById(R.id.help_scrollview);
+		helpView.setBackgroundColor(Color.BLACK);
+		helpView.getBackground().setAlpha(0);
+		
+		overlayView = findViewById(R.id.help_overlay_container);
+		overlayView.setElevation(20);
+		overlayView.setBackgroundColor(Color.WHITE);
+		overlayView.getBackground().setAlpha(255);
+		overlayView.setVisibility(View.INVISIBLE);
+		
+		btnConnect = findViewById(R.id.btn_return);
 		btnContact = findViewById(R.id.btn_contact);
 		
 		initClickOnTouch();
 	}
 	
 	private void initClickOnTouch() {
+		final boolean[] show = new boolean[1];
 		View.OnClickListener mClickListener = v -> {
 			switch(v.getId()) {
-				case R.id.btn_connect2:
-					startControl();
+				case R.id.btn_return:
+					finish();
 					break;
 				case R.id.btn_contact:
-					showContact();
+					show[0] = !show[0];
+					showContact(show[0]);
 					break;
 			}
 		};
@@ -80,11 +69,13 @@ public class Help extends AppCompatActivity implements FragUtils {
 		btnContact.setOnClickListener(mClickListener);
 	}
 	
-	private void startControl() {
-		startActivity(new Intent(getApplicationContext(), Control.class));
-	}
-	
-	private void showContact() {
-	
+	private void showContact(boolean show) {
+		if(show) {
+			helpView.getBackground().setAlpha(200);
+			overlayView.setVisibility(View.VISIBLE);
+		} else {
+			overlayView.setVisibility(View.INVISIBLE);
+			helpView.getBackground().setAlpha(0);
+		}
 	}
 }

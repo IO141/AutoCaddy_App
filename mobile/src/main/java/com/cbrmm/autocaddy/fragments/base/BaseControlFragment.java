@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cbrmm.autocaddy.util.ControlUtils;
+
 import butterknife.ButterKnife;
 
 
-public abstract class BaseSubPanelFragment extends BaseFragment {
+public abstract class BaseControlFragment extends BaseFragment implements ControlUtils {
 	
 	@Nullable
 	@Override

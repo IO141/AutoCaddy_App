@@ -7,8 +7,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.cbrmm.autocaddy.R;
+import com.cbrmm.autocaddy.util.BluetoothService;
 
 
 //TODO Investigate Hub/Control merge
@@ -16,12 +18,16 @@ public class Hub extends AppCompatActivity {
 	
 	private static final String TAG = ":Hub:";
 	
+	protected static BluetoothService btService;
+	
 	private final boolean DEV = false;
 	private final int DEV_WINDOW = 2000;
 	private final int DEV_CNT = 6;
 	
 	private int mDevCount = 0;
 	private long mDevTime = 0;
+	
+	private TextView txtVersion;
 	
 	private Button btnConnect;
 	private Button btnHelp;
@@ -31,6 +37,8 @@ public class Hub extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_hub);
+		
+		btService = BluetoothService.getBluetoothService();
 	}
 	
 	@Override
@@ -61,6 +69,8 @@ public class Hub extends AppCompatActivity {
 	
 	private void initUI() {
 		
+		txtVersion = findViewById(R.id.txt_dev_version);
+		
 		btnConnect = findViewById(R.id.btn_connect);
 		btnHelp = findViewById(R.id.btn_help);
 		btnDev = findViewById(R.id.btn_dev);
@@ -78,7 +88,7 @@ public class Hub extends AppCompatActivity {
 					startHelp();
 					break;
 				case R.id.btn_dev:
-					startDev();
+					startDevBt();
 					break;
 			}
 		};
@@ -100,11 +110,17 @@ public class Hub extends AppCompatActivity {
 		startActivity(new Intent(this, Dev.class));
 	}
 	
+	private void startDevBt() {
+		startActivity(new Intent(this, DevBt.class));
+	}
+	
 	private void setVisibleDev() {
 		if(mDevCount == 1) {
 			btnDev.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.INVISIBLE : View.VISIBLE);
+			txtVersion.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.INVISIBLE : View.VISIBLE);
 		} else if(mDevCount >= DEV_CNT) {
 			btnDev.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+			txtVersion.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
 			mDevTime = 0;
 		}
 	}

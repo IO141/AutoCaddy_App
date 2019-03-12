@@ -39,5 +39,17 @@
     <string name="sett_2">Sett 2</string>
     <string name="sett_1">Sett 1</string>
     <string name="go">Go</string>
+    <string name="ac_phone_num_help">Tech Support Phone Number:</string>
+    <string name="ac_phone_num">(555) 555-5555</string>
+    <string name="ac_email_help">Tech Support Email Address:</string>
+    <string name="ac_email">mmbjr@autocaddy.com</string>
+    <string name="sett_disabled">DISABLED</string>
+    <string name="sett_enabled">ENABLED</string>
+    <string name="sett_off">OFF</string>
+    <string name="sett_on">ON</string>
+    <string name="sett_null">0</string>
+    <string name="precision_range_100">0-100</string>
+    <string name="set">Set</string>
+    <string name="return_to_prev_act">Return</string>
 
 </resources>

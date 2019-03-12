@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 
+@Deprecated
 public class Scheme {
 	
 	private String title;

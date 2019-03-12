@@ -2,6 +2,11 @@
 <manifest package="com.cbrmm.autocaddy"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +24,7 @@
         <activity android:name=".ui.Help"/>
         <activity android:name=".ui.Control"/>
         <activity android:name=".ui.Dev"/>
+        <activity android:name=".ui.DevBt"/>
     </application>
 
 </manifest>

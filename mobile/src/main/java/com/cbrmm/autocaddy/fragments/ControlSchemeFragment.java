@@ -10,26 +10,23 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.cbrmm.autocaddy.R;
-import com.cbrmm.autocaddy.fragments.base.BaseSubPanelFragment;
+import com.cbrmm.autocaddy.fragments.base.BaseControlFragment;
+import com.cbrmm.autocaddy.ui.Control;
+import com.cbrmm.autocaddy.util.Data;
 import com.cbrmm.autocaddy.util.Scheme;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Objects;
 
 import butterknife.BindView;
 
-import static com.cbrmm.autocaddy.driver.AC_Interface.*;
 
-
-public class ControlSchemeFragment extends BaseSubPanelFragment {
+public class ControlSchemeFragment extends BaseControlFragment {
 	
-	public static final String CS_KEY__PREC_SETTS = "Precision Settings";
-	public static final String CS_KEY__BIN_SETTS = "Binary Settings";
-	public static final String CS_KEY__CHK_SETTS = "Check Settings";
+	public static final String CS_KEY__MODEL = "Copied Data Model";
 	
-	private ArrayList<Scheme> schemes = new ArrayList<>();
-	private ArrayAdapter<String> schemesAdapter;
+	private ArrayList<Data> dataList = new ArrayList<>();
+	private ArrayAdapter<String> dataAdapter;
 	
 	@BindView(R.id.spin_schemes) Spinner spinSchemes;
 	
@@ -46,7 +43,7 @@ public class ControlSchemeFragment extends BaseSubPanelFragment {
 	
 	@BindView(R.id.btn_go) Button btnGo;
 	
-	private Scheme currScheme;
+	private Data currModel;
 	
 	@Override
 	protected int getLayoutId() {
@@ -61,22 +58,8 @@ public class ControlSchemeFragment extends BaseSubPanelFragment {
 	
 	@Override
 	protected void initSubPanel(Bundle args) {
-		HashMap<String, Object> settings = new HashMap<>();
-		
-		int[] prec = Objects.requireNonNull(args.getIntArray(CS_KEY__PREC_SETTS));
-		boolean[] bin = Objects.requireNonNull(args.getBooleanArray(CS_KEY__BIN_SETTS));
-		boolean[] chk = Objects.requireNonNull(args.getBooleanArray(CS_KEY__CHK_SETTS));
-		
-		settings.put(AC_KEY__SETT1, prec[0]);
-		settings.put(AC_KEY__SETT2, prec[1]);
-		settings.put(AC_KEY__SETT3, bin[0]);
-		settings.put(AC_KEY__SETT4, bin[1]);
-		settings.put(AC_KEY__SETT5, bin[2]);
-		settings.put(AC_KEY__SETT6A, chk[0]);
-		settings.put(AC_KEY__SETT6B, chk[1]);
-		settings.put(AC_KEY__SETT6C, chk[2]);
-		
-		currScheme = new Scheme("Default", settings);
+		currModel = new Data(CS_KEY__MODEL);
+		currModel.setDataArr(args.getByteArray(Control.C_KEY__MODEL));
 	}
 	
 	private void initSpinSchemes() {
@@ -84,10 +67,9 @@ public class ControlSchemeFragment extends BaseSubPanelFragment {
 		ArrayList<String> spinDef = new ArrayList<>();
 		
 		spinDef.add("Default");
-		schemesAdapter = new ArrayAdapter<>(frag, android.R.layout.simple_spinner_item, spinDef);
-		schemesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinSchemes.setAdapter(schemesAdapter);
-//		spinSchemes.setOnItemSelectedListener(makeSpinListener(KEY__MODE));
+		dataAdapter = new ArrayAdapter<>(frag, android.R.layout.simple_spinner_item, spinDef);
+		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinSchemes.setAdapter(dataAdapter);
 	}
 	
 	private void initControlSettings() {
@@ -95,15 +77,15 @@ public class ControlSchemeFragment extends BaseSubPanelFragment {
 	}
 	
 	private void updateSpinScheme() {
-		for(Scheme prev : schemes) {
-			if(Objects.equals(prev.getTitle(), currScheme.getTitle())) {
-				schemes.remove(prev);
-				schemesAdapter.remove(prev.getTitle());
+		for(Data prev : dataList) {
+			if(Objects.equals(prev.getTitle(), currModel.getTitle())) {
+				dataList.remove(prev);
+				dataAdapter.remove(prev.getTitle());
 			}
 		}
 		
-		schemes.add(currScheme);
-		schemesAdapter.add(currScheme.getTitle());
-		schemesAdapter.notifyDataSetChanged();
+		dataList.add(currModel);
+		dataAdapter.add(currModel.getTitle());
+		dataAdapter.notifyDataSetChanged();
 	}
 }

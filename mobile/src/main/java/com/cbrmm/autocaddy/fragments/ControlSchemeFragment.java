@@ -13,7 +13,6 @@ import com.cbrmm.autocaddy.R;
 import com.cbrmm.autocaddy.fragments.base.BaseControlFragment;
 import com.cbrmm.autocaddy.ui.Control;
 import com.cbrmm.autocaddy.util.Data;
-import com.cbrmm.autocaddy.util.Scheme;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -78,14 +77,14 @@ public class ControlSchemeFragment extends BaseControlFragment {
 	
 	private void updateSpinScheme() {
 		for(Data prev : dataList) {
-			if(Objects.equals(prev.getTitle(), currModel.getTitle())) {
+			if(Objects.equals(prev.getName(), currModel.getName())) {
 				dataList.remove(prev);
-				dataAdapter.remove(prev.getTitle());
+				dataAdapter.remove(prev.getName());
 			}
 		}
 		
 		dataList.add(currModel);
-		dataAdapter.add(currModel.getTitle());
+		dataAdapter.add(currModel.getName());
 		dataAdapter.notifyDataSetChanged();
 	}
 }

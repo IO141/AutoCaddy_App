@@ -59,7 +59,7 @@ public class DataUnitTest {
 		assertNull(initData);
 		initData = new Data(initTitle);
 		assertNotNull(initData);
-		assertEquals(initTitle, initData.getTitle());
+		assertEquals(initTitle, initData.getName());
 	}
 	
 	@Test
@@ -105,7 +105,7 @@ public class DataUnitTest {
 	@Test
 	public void setDataArr() {
 		assertNotNull(defaultData);
-		assertNotEquals(defaultData.getTitle(), origData.getTitle());
+		assertNotEquals(defaultData.getName(), origData.getName());
 		
 		byte[] arr = defaultData.getDataArr();
 		for(int i = 0; i < arr.length; i++) arr[i] = 1;
@@ -118,7 +118,6 @@ public class DataUnitTest {
 		assertTrue(equal);
 		assertNotEquals(origData.getInt(validSettings[0]), defaultData.getInt(validSettings[0]));
 		assertNotEquals(origData.getBool(validSettings[last]), defaultData.getBool(validSettings[last]));
-		assertEquals(origData.getDataLen(), defaultData.getDataLen());
 	}
 	
 	private Data initData(String name, int num) {

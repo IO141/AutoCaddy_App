@@ -6,21 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/spin_schemes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="8dp"
-        android:prompt="@string/spinner_schemes"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"/>
-
     <View
         android:id="@+id/divider"
         android:layout_width="368dp"
@@ -34,141 +19,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.25"/>
+        app:layout_constraintVertical_bias="0.13999999"/>
 
-
-    <TextView
-        android:id="@+id/txt_prec_setts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/prec_settings"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"/>
-
-    <TextView
-        android:id="@+id/txt_prec_sett1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/sett_1"
-        app:layout_constraintStart_toStartOf="@+id/txt_prec_setts"
-        app:layout_constraintTop_toBottomOf="@+id/txt_prec_setts"/>
-
-    <TextView
-        android:id="@+id/txt_prec_sett2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/sett_2"
-        app:layout_constraintStart_toStartOf="@+id/txt_prec_setts"
-        app:layout_constraintTop_toBottomOf="@+id/txt_prec_sett1"/>
-
-    <SeekBar
-        android:id="@+id/seek_prec_sett1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        android:progress="0"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toEndOf="@+id/txt_prec_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/txt_prec_setts"/>
-
-    <SeekBar
-        android:id="@+id/seek_prec_sett2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:progress="0"
-        app:layout_constraintEnd_toEndOf="@+id/seek_prec_sett1"
-        app:layout_constraintStart_toEndOf="@+id/txt_prec_sett2"
-        app:layout_constraintTop_toBottomOf="@+id/seek_prec_sett1"/>
-
-    <TextView
-        android:id="@+id/txt_bin_setts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="@string/bin_settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txt_prec_setts"/>
-
-    <Switch
-        android:id="@+id/switch_sett1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/sett_3"
-        app:layout_constraintEnd_toEndOf="@+id/txt_bin_setts"
-        app:layout_constraintTop_toBottomOf="@+id/txt_bin_setts"/>
-
-    <Switch
-        android:id="@+id/switch_sett2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/sett_4"
-        app:layout_constraintEnd_toEndOf="@+id/txt_bin_setts"
-        app:layout_constraintTop_toBottomOf="@+id/switch_sett1"/>
-
-    <Switch
-        android:id="@+id/switch_sett3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/sett_5"
-        app:layout_constraintEnd_toEndOf="@+id/txt_bin_setts"
-        app:layout_constraintTop_toBottomOf="@+id/switch_sett2"/>
-
-    <TextView
-        android:id="@+id/txt_chk_setts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/chk_settings"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seek_prec_sett2"/>
-
-    <CheckBox
-        android:id="@+id/chk_sett1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/sett_6a"
-        app:layout_constraintStart_toStartOf="@+id/txt_chk_setts"
-        app:layout_constraintTop_toBottomOf="@+id/txt_chk_setts"/>
-
-    <CheckBox
-        android:id="@+id/chk_sett2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/sett_6b"
-        app:layout_constraintStart_toStartOf="@+id/txt_chk_setts"
-        app:layout_constraintTop_toBottomOf="@+id/chk_sett1"/>
-
-    <CheckBox
-        android:id="@+id/chk_sett3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/sett_6c"
-        app:layout_constraintStart_toStartOf="@+id/txt_chk_setts"
-        app:layout_constraintTop_toBottomOf="@+id/chk_sett2"/>
 
     <Button
         android:id="@+id/btn_go"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="32dp"
         android:text="@string/go"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/chk_sett3"/>
+        app:layout_constraintTop_toBottomOf="@+id/radioButton6"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -176,5 +38,83 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="192dp"/>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="AutoCaddy Follow Behavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton"/>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="AutoCaddy Speed"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/divider"/>
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Fast"
+        app:layout_constraintEnd_toEndOf="@+id/radioButton2"
+        app:layout_constraintStart_toStartOf="@+id/radioButton2"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton3"/>
+
+    <RadioButton
+        android:id="@+id/radioButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Medium"
+        app:layout_constraintStart_toStartOf="@+id/radioButton2"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton2"/>
+
+    <RadioButton
+        android:id="@+id/radioButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Slow"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+
+    <RadioButton
+        android:id="@+id/radioButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Go To Holes"
+        app:layout_constraintStart_toStartOf="@+id/radioButton2"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+
+    <RadioButton
+        android:id="@+id/radioButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Wait at Goals"
+        app:layout_constraintStart_toStartOf="@+id/radioButton4"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton4"/>
+
+    <RadioButton
+        android:id="@+id/radioButton6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Follow Me"
+        app:layout_constraintStart_toStartOf="@+id/radioButton5"
+        app:layout_constraintTop_toBottomOf="@+id/radioButton5"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -53,11 +53,11 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 	ArrayList<BluetoothDevice> btAADevices = new ArrayList<>();
 	ArrayAdapter<String> btAA;
 	
-	private Spinner spinG1, spinG2, spinG3, spinBt;
-	private EditText editG1, editBtMsg;
-	private Switch swG2, swG3;
-	private Button buttonG1, buttonG2, buttonG3, buttonReturn, buttonBtDiscover, buttonBtPair, buttonBtRead, buttonBtWrite;
-	private TextView vtxt1, vtxt2, vtxt3, vtxt4, vtxt5, vtxt6, vtxt7, vtxt8, txtBT;
+	private Spinner spinG1, spinG2;
+	private EditText editG1;
+	private Switch swG2;
+	private Button buttonG1, buttonG2, buttonReturn;
+	private TextView vtxt1, vtxt2, vtxt3, vtxt4, vtxt5, vtxt6, vtxt7, vtxt8;
 	
 	private boolean isBtEnReturn, isBtEn;
 	private int btAAPos = -1;
@@ -76,13 +76,15 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 		
 		initUI();
 		
-		registerReceiver(btReceiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
-		
-		service = BluetoothService.getBluetoothService();
-		btAdapter = BluetoothAdapter.getDefaultAdapter();
-		btAdapter.startDiscovery();
-		BluetoothService.btEnable(btAdapter, this);
-		btGetPairedDevices();
+		//TODO bt code
+		;
+//		registerReceiver(btReceiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
+//
+//		service = BluetoothService.getBluetoothService();
+//		btAdapter = BluetoothAdapter.getDefaultAdapter();
+//		btAdapter.startDiscovery();
+//		BluetoothService.btEnable(btAdapter, this);
+//		btGetPairedDevices();
 	}
 	
 	@Override
@@ -113,32 +115,22 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 		
 		spinG1 = findViewById(R.id.dev_spin_sett_g1);
 		spinG2 = findViewById(R.id.dev_spin_sett_g2);
-		spinG3 = findViewById(R.id.dev_spin_sett_g3);
-		spinBt = findViewById(R.id.dev_spin_bt);
 		
-		editBtMsg = findViewById(R.id.dev_edit_bt_msg);
 		editG1 = findViewById(R.id.dev_edit_sett_g1);
 		swG2 = findViewById(R.id.dev_switch_sett_g2);
-		swG3 = findViewById(R.id.dev_switch_sett_g3);
 		
 		buttonG1 = findViewById(R.id.dev_button_sett_g1);
 		buttonG2 = findViewById(R.id.dev_button_sett_g2);
-		buttonG3 = findViewById(R.id.dev_button_sett_g3);
 		buttonReturn = findViewById(R.id.dev_button_return);
-		buttonBtDiscover = findViewById(R.id.dev_button_bt_discover);
-		buttonBtPair = findViewById(R.id.dev_button_bt_pair);
-		buttonBtRead = findViewById(R.id.dev_button_bt_read);
-		buttonBtWrite = findViewById(R.id.dev_button_bt_write);
 		
-		vtxt1 = findViewById(R.id.dev_vtxt_sett1);
-		vtxt2 = findViewById(R.id.dev_vtxt_sett2);
-		vtxt3 = findViewById(R.id.dev_vtxt_sett3);
-		vtxt4 = findViewById(R.id.dev_vtxt_sett4);
-		vtxt5 = findViewById(R.id.dev_vtxt_sett5);
-		vtxt6 = findViewById(R.id.dev_vtxt_sett6);
-		vtxt7 = findViewById(R.id.dev_vtxt_sett7);
-		vtxt8 = findViewById(R.id.dev_vtxt_sett8);
-		txtBT = findViewById(R.id.dev_txt_bt_dd_notice);
+		vtxt1 = findViewById(R.id.dev_vtxt_sett_speed);
+		vtxt2 = findViewById(R.id.dev_vtxt_sett_turn);
+		vtxt3 = findViewById(R.id.dev_vtxt_sett_accelx);
+		vtxt4 = findViewById(R.id.dev_vtxt_sett_accely);
+		vtxt5 = findViewById(R.id.dev_vtxt_sett_accelz);
+		vtxt6 = findViewById(R.id.dev_vtxt_sett_gpsy);
+		vtxt7 = findViewById(R.id.dev_vtxt_sett_auto);
+		vtxt8 = findViewById(R.id.dev_vtxt_sett_sensor);
 		
 		ArrayAdapter<String> g1AA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, g1);
 		g1AA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -148,31 +140,23 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 		g2AA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinG2.setAdapter(g2AA);
 		
-		ArrayAdapter<String> g3AA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, g3);
-		g3AA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinG3.setAdapter(g3AA);
-		
-		btAA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item);
-		g3AA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinBt.setAdapter(btAA);
-		
 		setOnClickListener();
-		setOnLongClickListener();
-		setOnItemSelectedListener();
 	}
 	
-	public void btGetPairedDevices() {
-		Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
-		if (pairedDevices.size() > 0) {
-			for (BluetoothDevice device : pairedDevices) {
-				btAA.add(device.getName() + "\n" + device.getAddress());
-				btAADevices.add(device);
-				btAAPos = 0;
-			}
-		} else {
-			txtBT.setText("Discovered Devices");
-		}
-	}
+	//TODO bt code
+	;
+//	public void btGetPairedDevices() {
+//		Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
+//		if (pairedDevices.size() > 0) {
+//			for (BluetoothDevice device : pairedDevices) {
+//				btAA.add(device.getName() + "\n" + device.getAddress());
+//				btAADevices.add(device);
+//				btAAPos = 0;
+//			}
+//		} else {
+//			txtBT.setText("Discovered Devices");
+//		}
+//	}
 	
 	private void setOnClickListener() {
 		onClickListener = v -> {
@@ -202,32 +186,23 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 					if(spinG2.getSelectedItemPosition() == 0) utils.modSwitch(vtxt3, b_val);
 					else if(spinG2.getSelectedItemPosition() == 1) utils.modSwitch(vtxt4, b_val);
 					else utils.modSwitch(vtxt5, b_val);
-					break;
-				case R.id.dev_button_sett_g3:
-					name = (String) spinG3.getSelectedItem();
-					b_val = swG3.isChecked();
-					setModel(name, b_val);
-					
-					if(spinG3.getSelectedItemPosition() == 0) utils.modEnable(vtxt6, b_val);
-					else if(spinG3.getSelectedItemPosition() == 1) utils.modEnable(vtxt7, b_val);
-					else utils.modEnable(vtxt8, b_val);
-					break;
-				case R.id.dev_button_bt_discover:
-					btAdapter.startDiscovery();
-					break;
-				case R.id.dev_button_bt_pair:
-					service.makeNewConnection(btAADevices.get(btAAPos), btAdapter);
-					break;
-				case R.id.dev_button_bt_read:
-					scheduledComm = scheduledExecutorService.schedule(new Runnable() {
-						@Override
-						public void run() {
-//							service.readFromConnection(); TODO
-						}
-					}, 0, TimeUnit.MILLISECONDS);
-					break;
-				case R.id.dev_button_bt_write:
-					break;
+					break; //TODO bt code
+//				case R.id.dev_button_bt_discover:
+//					btAdapter.startDiscovery();
+//					break;
+//				case R.id.dev_button_bt_pair:
+//					service.makeNewConnection(btAADevices.get(btAAPos), btAdapter);
+//					break;
+//				case R.id.dev_button_bt_read:
+//					scheduledComm = scheduledExecutorService.schedule(new Runnable() {
+//						@Override
+//						public void run() {
+////							service.readFromConnection(); TODO
+//						}
+//					}, 0, TimeUnit.MILLISECONDS);
+//					break;
+//				case R.id.dev_button_bt_write:
+//					break;
 				case R.id.dev_button_return:
 					finish();
 					break;
@@ -236,50 +211,30 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 		
 		buttonG1.setOnClickListener(onClickListener);
 		buttonG2.setOnClickListener(onClickListener);
-		buttonG3.setOnClickListener(onClickListener);
-		buttonBtDiscover.setOnClickListener(onClickListener);
-		buttonBtPair.setOnClickListener(onClickListener);
-		buttonBtRead.setOnClickListener(onClickListener);
-		buttonBtWrite.setOnClickListener(onClickListener);
 		buttonReturn.setOnClickListener(onClickListener);
 	}
 	
-	private void setOnLongClickListener() {
-		onLongClickListener = v -> {
-			switch(v.getId()) {
-				case R.id.dev_button_bt_discover:
-					//TODO
-					break;
-				case R.id.dev_button_bt_pair:
-					//TODO
-					break;
-			}
-			return false;
-		};
-		
-		buttonBtDiscover.setOnLongClickListener(onLongClickListener);
-		buttonBtPair.setOnLongClickListener(onLongClickListener);
-	}
-	
-	private void setOnItemSelectedListener() {
-		onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
-				switch(v.getId()) {
-					case R.id.dev_spin_bt:
-						btAAPos = position;
-						break;
-				}
-			}
-			
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-			
-			}
-		};
-		
-		spinBt.setOnItemSelectedListener(onItemSelectedListener);
-	}
+	//TODO bt code
+	;
+//	private void setOnItemSelectedListener() {
+//		onItemSelectedListener = new AdapterView.OnItemSelectedListener() {
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+//				switch(v.getId()) {
+//					case R.id.dev_spin_bt:
+//						btAAPos = position;
+//						break;
+//				}
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//
+//			}
+//		};
+//
+//		spinBt.setOnItemSelectedListener(onItemSelectedListener);
+//	}
 	
 	private void setModel(String setting, Object value) {
 		if(value instanceof Integer) {

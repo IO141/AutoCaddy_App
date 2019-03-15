@@ -27,17 +27,17 @@
     <string name="bin_settings">Binary Settings</string>
     <string name="chk_settings">Check Settings</string>
 
-    <string name="sett_3">Sett 3</string>
-    <string name="sett_4">Sett 4</string>
-    <string name="sett_5">Sett 5</string>
-    <string name="sett_6">Sett 6</string>
-    <string name="sett_6a">Sett 6A</string>
-    <string name="sett_6b">Sett 6B</string>
-    <string name="sett_6c">Sett 6C</string>
+    <string name="sett_speed">Speed</string>
+    <string name="sett_turn">Turn</string>
+    <string name="sett_accelx">Accelerometer X</string>
+    <string name="sett_accely">Accelerometer Y</string>
+    <string name="sett_accelz">Accelerometer Z</string>
+    <string name="sett_gpsx">GPS X</string>
+    <string name="sett_gpsy">GPS Y</string>
+    <string name="sett_auto">Autonomous</string>
+    <string name="sett_sensor">Sensor</string>
 
-    <string name="development_info">Development Build v0.1</string>
-    <string name="sett_2">Sett 2</string>
-    <string name="sett_1">Sett 1</string>
+    <string name="development_info">Development Build v0.6</string>
     <string name="go">Go</string>
     <string name="ac_phone_num_help">Tech Support Phone Number:</string>
     <string name="ac_phone_num">(555) 555-5555</string>
@@ -50,6 +50,8 @@
     <string name="sett_null">0</string>
     <string name="precision_range_100">0-100</string>
     <string name="set">Set</string>
-    <string name="return_to_prev_act">Return</string>
+    <string name="return_to_prev_act">Finish</string>
+    <string name="update">Update</string>
+    <string name="reset">Reset</string>
 
 </resources>

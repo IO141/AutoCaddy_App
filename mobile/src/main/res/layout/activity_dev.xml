@@ -13,7 +13,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g1"/>
@@ -25,31 +25,10 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g2"/>
-
-    <Spinner
-        android:id="@+id/dev_spin_sett_g3"
-        android:layout_width="154dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g3"/>
-
-    <Spinner
-        android:id="@+id/dev_spin_bt"
-        android:layout_width="133dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_bt_dd_notice"/>
 
     <EditText
         android:id="@+id/dev_edit_sett_g1"
@@ -60,7 +39,7 @@
         android:hint="@string/precision_range_100"
         android:imeOptions="actionDone"
         android:inputType="number"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g1"
         app:layout_constraintEnd_toStartOf="@+id/dev_button_sett_g1"
         app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g1"/>
@@ -73,34 +52,20 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g2"
         app:layout_constraintEnd_toStartOf="@+id/dev_button_sett_g2"
         app:layout_constraintStart_toEndOf="@+id/dev_spin_sett_g2"
         app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g2"/>
-
-    <Switch
-        android:id="@+id/dev_switch_sett_g3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g3"
-        app:layout_constraintEnd_toStartOf="@+id/dev_button_sett_g3"
-        app:layout_constraintStart_toEndOf="@+id/dev_spin_sett_g3"
-        app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g3"/>
 
     <Button
         android:id="@+id/dev_button_sett_g1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/set"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -108,280 +73,255 @@
         android:id="@+id/dev_button_sett_g2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/set"
-        android:visibility="gone"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dev_button_sett_g1"/>
-
-    <Button
-        android:id="@+id/dev_button_sett_g3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/set"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dev_button_sett_g2"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="210dp"/>
-
-    <TextView
-        android:id="@+id/dev_txt_bt_dd_notice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="8dp"
-        android:text="Paired devices"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"/>
-
-    <EditText
-        android:id="@+id/dev_edit_bt_msg"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:hint="msg"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/dev_button_bt_discover"
-        app:layout_constraintTop_toBottomOf="@+id/dev_button_bt_pair"/>
-
-    <Button
-        android:id="@+id/dev_button_bt_discover"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
-        android:text="BT Discover"
-        app:layout_constraintEnd_toStartOf="@+id/dev_button_bt_pair"
-        app:layout_constraintTop_toBottomOf="@+id/dev_spin_bt"/>
-
-    <Button
-        android:id="@+id/dev_button_bt_pair"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="BT Pair"
-        app:layout_constraintEnd_toEndOf="@+id/dev_spin_bt"
-        app:layout_constraintTop_toTopOf="@+id/dev_button_bt_discover"/>
+        app:layout_constraintGuide_end="322dp"/>
 
     <Button
         android:id="@+id/dev_button_return"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
         android:text="@string/return_to_prev_act"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_txt_sett8"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/dev_vtxt_sett_sensor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dev_button_bt_write"/>
+        app:layout_constraintTop_toTopOf="@+id/dev_vtxt_sett_gpsy"/>
 
     <TextView
-        android:id="@+id/dev_txt_sett1"
-        android:layout_width="wrap_content"
+        android:id="@+id/dev_txt_sett_speed"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="@string/sett_1"
-        android:visibility="gone"
+        android:text="@string/sett_speed"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/dev_vtxt_sett_speed"
+        app:layout_constraintHorizontal_bias="0.81"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        tools:textAlignment="center"/>
 
     <TextView
-        android:id="@+id/dev_txt_sett2"
+        android:id="@+id/dev_txt_sett_turn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/sett_turn"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_speed"
+        tools:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/dev_txt_sett_accelx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/sett_2"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett1"/>
+        android:text="@string/sett_accelx"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_turn"/>
 
     <TextView
-        android:id="@+id/dev_txt_sett3"
+        android:id="@+id/dev_txt_sett_accely"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/sett_3"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett2"/>
+        android:text="@string/sett_accely"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_accelx"/>
 
     <TextView
-        android:id="@+id/dev_txt_sett4"
+        android:id="@+id/dev_txt_sett_accelz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/sett_4"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett3"/>
+        android:text="@string/sett_accelz"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_accely"/>
+
 
     <TextView
-        android:id="@+id/dev_txt_sett5"
+        android:id="@+id/dev_txt_sett_gpsx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/sett_5"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett4"/>
+        android:layout_marginTop="8dp"
+        android:text="@string/sett_gpsx"
+        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_accelz"/>
 
     <TextView
-        android:id="@+id/dev_txt_sett6"
+        android:id="@+id/dev_txt_sett_gpsy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/sett_6a"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett5"/>
+        android:layout_marginTop="8dp"
+        android:text="@string/sett_gpsy"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_gpsx"/>
 
     <TextView
-        android:id="@+id/dev_txt_sett7"
+        android:id="@+id/dev_txt_sett_auto"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/sett_6b"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett6"/>
+        android:layout_marginTop="8dp"
+        android:text="@string/sett_auto"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_gpsy"/>
 
     <TextView
-        android:id="@+id/dev_txt_sett8"
+        android:id="@+id/dev_txt_sett_sensor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/sett_6c"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett7"/>
+        android:layout_marginTop="8dp"
+        android:text="@string/sett_sensor"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett_speed"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_auto"/>
 
     <TextView
-        android:id="@+id/dev_vtxt_sett1"
+        android:id="@+id/dev_vtxt_sett_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:text="@string/sett_null"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett6"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett_turn"
+        app:layout_constraintStart_toStartOf="@+id/dev_vtxt_sett_turn"
         app:layout_constraintTop_toTopOf="@+id/guideline2"/>
 
     <TextView
-        android:id="@+id/dev_vtxt_sett2"
+        android:id="@+id/dev_vtxt_sett_turn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:text="@string/sett_null"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett6"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett1"/>
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett_accelx"
+        app:layout_constraintStart_toStartOf="@+id/dev_vtxt_sett_accelx"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_speed"/>
 
     <TextView
-        android:id="@+id/dev_vtxt_sett3"
+        android:id="@+id/dev_vtxt_sett_accelx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
-        android:text="@string/sett_off"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett6"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett2"/>
+        android:text="@string/sett_null"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett_gpsy"
+        app:layout_constraintStart_toStartOf="@+id/dev_vtxt_sett_accely"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_turn"/>
 
     <TextView
-        android:id="@+id/dev_vtxt_sett4"
+        android:id="@+id/dev_vtxt_sett_accely"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
-        android:text="@string/sett_off"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett6"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett3"/>
+        android:text="@string/sett_null"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett_accelz"
+        app:layout_constraintStart_toStartOf="@+id/dev_vtxt_sett_accelz"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_accelx"/>
 
     <TextView
-        android:id="@+id/dev_vtxt_sett5"
+        android:id="@+id/dev_vtxt_sett_accelz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
-        android:text="@string/sett_off"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett6"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett4"/>
+        android:text="@string/sett_null"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett_gpsx"
+        app:layout_constraintStart_toStartOf="@+id/dev_vtxt_sett_gpsx"
+        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett_accely"/>
+
 
     <TextView
-        android:id="@+id/dev_vtxt_sett6"
+        android:id="@+id/dev_vtxt_sett_gpsx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
+        android:text="@string/sett_null"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett_gpsy"
+        app:layout_constraintStart_toStartOf="@+id/dev_vtxt_sett_gpsy"
+        app:layout_constraintTop_toTopOf="@+id/dev_txt_sett_gpsx"/>
+
+    <TextView
+        android:id="@+id/dev_vtxt_sett_gpsy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/sett_null"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/dev_vtxt_sett_auto"
+        app:layout_constraintStart_toStartOf="@+id/dev_vtxt_sett_auto"
+        app:layout_constraintTop_toBottomOf="@+id/dev_vtxt_sett_gpsx"/>
+
+    <TextView
+        android:id="@+id/dev_vtxt_sett_auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="8dp"
         android:text="@string/sett_disabled"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett5"/>
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dev_vtxt_sett_gpsy"/>
 
     <TextView
-        android:id="@+id/dev_vtxt_sett7"
+        android:id="@+id/dev_vtxt_sett_sensor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/sett_disabled"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett6"/>
-
-    <TextView
-        android:id="@+id/dev_vtxt_sett8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/sett_disabled"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/dev_txt_sett1"
-        app:layout_constraintTop_toBottomOf="@+id/dev_txt_sett7"/>
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/dev_vtxt_sett_auto"
+        app:layout_constraintTop_toBottomOf="@+id/dev_vtxt_sett_auto"/>
 
     <Button
-        android:id="@+id/dev_button_bt_write"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/dev_button_update"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Write"
+        android:text="@string/update"
+        app:layout_constraintBottom_toTopOf="@+id/dev_button_reset"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dev_edit_bt_msg"/>
+        app:layout_constraintStart_toEndOf="@+id/dev_vtxt_sett_gpsy"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"/>
 
     <Button
-        android:id="@+id/dev_button_bt_read"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/dev_button_reset"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Read"
-        app:layout_constraintEnd_toStartOf="@+id/dev_button_bt_write"
-        app:layout_constraintTop_toBottomOf="@+id/dev_edit_bt_msg"/>
+        android:text="@string/reset"
+        app:layout_constraintBottom_toTopOf="@+id/dev_button_return"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dev_vtxt_sett_gpsy"
+        app:layout_constraintTop_toTopOf="@+id/dev_vtxt_sett_accelz"/>
 
 </android.support.constraint.ConstraintLayout>

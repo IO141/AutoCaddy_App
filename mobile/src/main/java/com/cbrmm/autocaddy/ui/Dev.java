@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 	private EditText editNums;
 	private Switch swBools;
 	private Button btnNums, btnBools, btnUpdate, btnReset, btnReturn;
+	
 	private TextView[] vtxtArr;
 	
 	private boolean isBtEnReturn, isBtEn;
@@ -129,21 +131,6 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 		
 		setOnClickListener();
 	}
-	
-	//TODO bt code
-	;
-//	public void btGetPairedDevices() {
-//		Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
-//		if (pairedDevices.size() > 0) {
-//			for (BluetoothDevice device : pairedDevices) {
-//				btAA.add(device.getName() + "\n" + device.getAddress());
-//				btAADevices.add(device);
-//				btAAPos = 0;
-//			}
-//		} else {
-//			txtBT.setText("Discovered Devices");
-//		}
-//	}
 	
 	/**
 	 * Defines the behavior of each button.
@@ -230,6 +217,11 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 //		spinBt.setOnItemSelectedListener(onItemSelectedListener);
 //	}
 	
+	/**
+	 * A wrapper for the call to the Hub data model that also logs the action.
+	 * @param setting The name of the setting to modify.
+	 * @param value The new value of the setting.
+	 */
 	private void setControlModel(String setting, Object value) {
 		Hub.dataModel.put(setting, value);
 		Log.i(TAG, "Control model modified.");

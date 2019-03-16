@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.cbrmm.autocaddy.R;
 import com.cbrmm.autocaddy.util.BluetoothService;
+import com.cbrmm.autocaddy.util.Data;
 
 
 //TODO Investigate Hub/Control merge
@@ -19,6 +20,8 @@ public class Hub extends AppCompatActivity {
 	private static final String TAG = ":Hub:";
 	
 	protected static BluetoothService btService;
+	
+	public static Data dataModel = new Data("Control"); //TODO public static is not ideal
 	
 	private final boolean DEV = false;
 	private final int DEV_WINDOW = 2000;
@@ -54,7 +57,7 @@ public class Hub extends AppCompatActivity {
 				long time = System.currentTimeMillis();
 				
 				if(mDevTime == 0 || time - mDevTime > DEV_WINDOW) {
-					mDevCount = 1;
+					mDevCount = 0;
 					mDevTime = time;
 				} else {
 					mDevCount++;
@@ -75,12 +78,12 @@ public class Hub extends AppCompatActivity {
 		btnHelp = findViewById(R.id.btn_help);
 		btnDev = findViewById(R.id.btn_dev);
 		
-		clickOnTouch();
+		setClickListeners();
 	}
 	
-	private void clickOnTouch() {
-		OnClickListener mClickListener = view -> {
-			switch(view.getId()) {
+	private void setClickListeners() {
+		OnClickListener mClickListener = v -> {
+			switch(v.getId()) {
 				case R.id.btn_connect:
 					startControl();
 					break;
@@ -88,14 +91,26 @@ public class Hub extends AppCompatActivity {
 					startHelp();
 					break;
 				case R.id.btn_dev:
-					startDevBt();
+					startDev();
 					break;
+			}
+		};
+		
+		View.OnLongClickListener mLongClickListener = v -> {
+			switch(v.getId()) {
+				case R.id.btn_dev:
+					startDevBt();
+					return true;
+				default:
+					return false;
 			}
 		};
 		
 		btnConnect.setOnClickListener(mClickListener);
 		btnHelp.setOnClickListener(mClickListener);
 		btnDev.setOnClickListener(mClickListener);
+		
+		btnDev.setOnLongClickListener(mLongClickListener);
 	}
 	
 	private void startControl() {
@@ -115,12 +130,12 @@ public class Hub extends AppCompatActivity {
 	}
 	
 	private void setVisibleDev() {
-		if(mDevCount == 1) {
+		if(mDevCount == 0) {
 			btnDev.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.INVISIBLE : View.VISIBLE);
-			txtVersion.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.INVISIBLE : View.VISIBLE);
+			txtVersion.setVisibility(txtVersion.getVisibility() == View.INVISIBLE ? View.INVISIBLE : View.VISIBLE);
 		} else if(mDevCount >= DEV_CNT) {
 			btnDev.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
-			txtVersion.setVisibility(btnDev.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
+			txtVersion.setVisibility(txtVersion.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
 			mDevTime = 0;
 		}
 	}

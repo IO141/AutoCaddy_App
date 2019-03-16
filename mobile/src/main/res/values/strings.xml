@@ -50,7 +50,7 @@
     <string name="sett_null">0</string>
     <string name="precision_range_100">0-100</string>
     <string name="set">Set</string>
-    <string name="return_to_prev_act">Finish</string>
+    <string name="return_to_prev_act">Back to Hub</string>
     <string name="update">Update</string>
     <string name="reset">Reset</string>
 

@@ -230,6 +230,14 @@ public class Data {
 		return this.name;
 	}
 	
+	public void reset() {
+		for(int i = 0; i < this.data.length; i++) {
+			for(int j = SIGNAL_LENGTH; j < this.data[i].length; j++) {
+				this.data[i][j] = 0;
+			}
+		}
+	}
+	
 	/**
 	 * Converts an array of characters into an array of bytes.
 	 * @param chars The character array to be converted.

@@ -16,6 +16,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <TextView
+        android:id="@+id/devbt_txt_enlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Enabled"
+        app:layout_constraintEnd_toStartOf="@+id/devbt_btn_connect"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <Spinner
         android:id="@+id/devbt_spin_devices"
         android:layout_width="wrap_content"
@@ -24,8 +34,66 @@
         app:layout_constraintStart_toStartOf="@+id/devbt_txt_devices"
         app:layout_constraintTop_toBottomOf="@+id/devbt_txt_devices"/>
 
+    <RadioButton
+        android:id="@+id/devbt_radio_light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/devbt_btn_connect"
+        app:layout_constraintEnd_toEndOf="@+id/devbt_txt_enlight"
+        app:layout_constraintStart_toStartOf="@+id/devbt_txt_enlight"
+        app:layout_constraintTop_toTopOf="@+id/devbt_btn_connect"/>
+
+    <EditText
+        android:id="@+id/devbt_edit_read"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:editable="false"
+        android:hint="read msg"
+        android:inputType="none"
+        app:layout_constraintBottom_toBottomOf="@+id/devbt_btn_read"
+        app:layout_constraintEnd_toStartOf="@+id/devbt_btn_read"
+        app:layout_constraintTop_toTopOf="@+id/devbt_btn_read"
+        tools:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/devbt_edit_write"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:editable="true"
+        android:hint="send msg"
+        android:inputType="text"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="@+id/devbt_btn_write"
+        app:layout_constraintEnd_toStartOf="@+id/devbt_btn_write"
+        app:layout_constraintTop_toTopOf="@+id/devbt_btn_write"
+        tools:textAlignment="center"/>
+
     <Button
-        android:id="@+id/devbt_button_connect"
+        android:id="@+id/devbt_btn_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Read"
+        app:layout_constraintEnd_toEndOf="@+id/devbt_btn_connect"
+        app:layout_constraintTop_toBottomOf="@+id/devbt_btn_connect"/>
+
+    <Button
+        android:id="@+id/devbt_btn_write"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Write"
+        app:layout_constraintEnd_toEndOf="@+id/devbt_btn_connect"
+        app:layout_constraintTop_toBottomOf="@+id/devbt_btn_read"/>
+
+    <Button
+        android:id="@+id/devbt_btn_connect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -34,81 +102,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/devbt_txt_enlight"/>
 
-    <RadioButton
-        android:id="@+id/devbt_radio_enlight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:checked="false"
-        android:clickable="false"
-        app:layout_constraintBottom_toBottomOf="@+id/devbt_button_connect"
-        app:layout_constraintEnd_toEndOf="@+id/devbt_txt_enlight"
-        app:layout_constraintStart_toStartOf="@+id/devbt_txt_enlight"
-        app:layout_constraintTop_toTopOf="@+id/devbt_button_connect"/>
-
-    <EditText
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:editable="true"
-        android:hint="send msg"
-        android:inputType="text"
-        android:singleLine="true"
-        app:layout_constraintBottom_toBottomOf="@+id/devbt_button_write"
-        app:layout_constraintEnd_toStartOf="@+id/devbt_button_write"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/devbt_button_write"
-        tools:textAlignment="center"/>
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:editable="false"
-        android:hint="read msg"
-        android:inputType="none"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_button_write"
-        app:layout_constraintEnd_toStartOf="@+id/dev_button_write"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/dev_button_write"
-        tools:textAlignment="center"/>
-
-    <Button
-        android:id="@+id/devbt_button_write"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Write"
-        app:layout_constraintEnd_toEndOf="@+id/devbt_button_connect"
-        app:layout_constraintTop_toBottomOf="@+id/dev_button_write"/>
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="114dp"/>
-
-    <Button
-        android:id="@+id/dev_button_write"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Read"
-        app:layout_constraintEnd_toEndOf="@+id/devbt_button_connect"
-        app:layout_constraintTop_toBottomOf="@+id/devbt_button_connect"/>
-
-    <TextView
-        android:id="@+id/devbt_txt_enlight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Enabled"
-        app:layout_constraintEnd_toStartOf="@+id/devbt_button_connect"
-        app:layout_constraintTop_toTopOf="parent"/>
 </android.support.constraint.ConstraintLayout>

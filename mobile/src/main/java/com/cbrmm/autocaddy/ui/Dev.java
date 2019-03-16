@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,15 +20,13 @@ import android.widget.Toast;
 
 import com.cbrmm.autocaddy.R;
 import com.cbrmm.autocaddy.util.BluetoothService;
-import com.cbrmm.autocaddy.util.Data;
 import com.cbrmm.autocaddy.util.DevUtils;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
 
 
 public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtData{
@@ -38,12 +35,10 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 	private final int DISCOVER_PERIOD = 60;
 	
 	private DevUtils utils;
-	private Data model;
 	
 	private BluetoothService service;
 	BluetoothAdapter btAdapter;
 	
-	private View.OnClickListener onClickListener;
 	private View.OnLongClickListener onLongClickListener;
 	private AdapterView.OnItemSelectedListener onItemSelectedListener;
 	
@@ -53,11 +48,11 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 	ArrayList<BluetoothDevice> btAADevices = new ArrayList<>();
 	ArrayAdapter<String> btAA;
 	
-	private Spinner spinG1, spinG2;
-	private EditText editG1;
-	private Switch swG2;
-	private Button buttonG1, buttonG2, buttonReturn;
-	private TextView vtxt1, vtxt2, vtxt3, vtxt4, vtxt5, vtxt6, vtxt7, vtxt8;
+	private Spinner spinNums, spinBools;
+	private EditText editNums;
+	private Switch swBools;
+	private Button btnNums, btnBools, btnUpdate, btnReset, btnReturn;
+	private TextView[] vtxtArr;
 	
 	private boolean isBtEnReturn, isBtEn;
 	private int btAAPos = -1;
@@ -68,11 +63,6 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 		setContentView(R.layout.activity_dev);
 		
 		utils = new DevUtils(this);
-		model = Control.dataModel;
-		if(model == null) {
-			model = Control.initExternalData("Dummy Model");
-			makeToast("Warning: Model is null, using dummy.", Toast.LENGTH_SHORT);
-		}
 		
 		initUI();
 		
@@ -88,15 +78,6 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 	}
 	
 	@Override
-	protected void onResume() {
-		super.onResume();
-		
-		if(Control.dataModel != null) {
-			model = Control.dataModel;
-		}
-	}
-	
-	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		
@@ -109,36 +90,42 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 	
 	private void initUI() {
 		
-		final String[] g1 = {Control.validSettings[0], Control.validSettings[1]};
-		final String[] g2 = {Control.validSettings[2], Control.validSettings[3], Control.validSettings[4]};
-		final String[] g3 = {Control.validSettings[5], Control.validSettings[6], Control.validSettings[7]};
+		final String[] numSettings = {Control.validSettings[0], Control.validSettings[1],
+				Control.validSettings[2], Control.validSettings[3], Control.validSettings[4],
+				Control.validSettings[5], Control.validSettings[6]};
+		final String[] boolSettings = {Control.validSettings[7], Control.validSettings[8]};
 		
-		spinG1 = findViewById(R.id.dev_spin_sett_g1);
-		spinG2 = findViewById(R.id.dev_spin_sett_g2);
+		spinNums = findViewById(R.id.dev_spin_num_setts);
+		spinBools = findViewById(R.id.dev_spin_bool_setts);
 		
-		editG1 = findViewById(R.id.dev_edit_sett_g1);
-		swG2 = findViewById(R.id.dev_switch_sett_g2);
+		editNums = findViewById(R.id.dev_edit_num_sett);
+		swBools = findViewById(R.id.dev_switch_bool_sett);
 		
-		buttonG1 = findViewById(R.id.dev_button_sett_g1);
-		buttonG2 = findViewById(R.id.dev_button_sett_g2);
-		buttonReturn = findViewById(R.id.dev_button_return);
+		btnNums = findViewById(R.id.dev_btn_num_sett);
+		btnBools = findViewById(R.id.dev_btn_bool_sett);
+		btnUpdate = findViewById(R.id.dev_btn_update);
+		btnReset = findViewById(R.id.dev_btn_reset);
+		btnReturn = findViewById(R.id.dev_btn_return);
 		
-		vtxt1 = findViewById(R.id.dev_vtxt_sett_speed);
-		vtxt2 = findViewById(R.id.dev_vtxt_sett_turn);
-		vtxt3 = findViewById(R.id.dev_vtxt_sett_accelx);
-		vtxt4 = findViewById(R.id.dev_vtxt_sett_accely);
-		vtxt5 = findViewById(R.id.dev_vtxt_sett_accelz);
-		vtxt6 = findViewById(R.id.dev_vtxt_sett_gpsy);
-		vtxt7 = findViewById(R.id.dev_vtxt_sett_auto);
-		vtxt8 = findViewById(R.id.dev_vtxt_sett_sensor);
+		vtxtArr = new TextView[] {
+				findViewById(R.id.dev_vtxt_sett_speed),  //Speed
+				findViewById(R.id.dev_vtxt_sett_turn),   //Turn
+				findViewById(R.id.dev_vtxt_sett_accelx), //Accelerometer X
+				findViewById(R.id.dev_vtxt_sett_accely), //Accelerometer X
+				findViewById(R.id.dev_vtxt_sett_accelz), //Accelerometer X
+				findViewById(R.id.dev_vtxt_sett_gpsx),   //GPS X
+				findViewById(R.id.dev_vtxt_sett_gpsy),   //GPS Y
+				findViewById(R.id.dev_vtxt_sett_auto),   //Autonomous
+				findViewById(R.id.dev_vtxt_sett_sensor)  //Sensor
+		};
 		
-		ArrayAdapter<String> g1AA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, g1);
-		g1AA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinG1.setAdapter(g1AA);
+		ArrayAdapter<String> numsAA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, numSettings);
+		numsAA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinNums.setAdapter(numsAA);
 		
-		ArrayAdapter<String> g2AA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, g2);
-		g2AA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinG2.setAdapter(g2AA);
+		ArrayAdapter<String> boolsAA = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, boolSettings);
+		boolsAA.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		spinBools.setAdapter(boolsAA);
 		
 		setOnClickListener();
 	}
@@ -158,35 +145,40 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 //		}
 //	}
 	
+	/**
+	 * Defines the behavior of each button.
+	 */
 	private void setOnClickListener() {
-		onClickListener = v -> {
+		View.OnClickListener onClickListener = v -> {
 			String name;
 			boolean b_val;
-			int i_val;
+			int i_val, index;
 			
 			switch(v.getId()) {
-				case R.id.dev_button_sett_g1:
-					name = (String) spinG1.getSelectedItem();
-					i_val = Integer.parseInt(editG1.getText().toString());
-					if(i_val < 0 || i_val > 100) {
-						makeToast("Invalid number", Toast.LENGTH_SHORT);
-					} else {
-						setModel(name, i_val);
-						editG1.setText("");
-						
-						if(spinG1.getSelectedItemPosition() == 0) utils.modNumber(vtxt1, i_val);
-						else utils.modNumber(vtxt2, i_val);
-					}
-					break;
-				case R.id.dev_button_sett_g2:
-					name = (String) spinG2.getSelectedItem();
-					b_val = swG2.isChecked();
-					setModel(name, b_val);
+				case R.id.dev_btn_num_sett:
+					name = (String) spinNums.getSelectedItem();
+					index = Arrays.asList(Control.validSettings).indexOf(name);
+					i_val = Integer.parseInt(editNums.getText().toString());
 					
-					if(spinG2.getSelectedItemPosition() == 0) utils.modSwitch(vtxt3, b_val);
-					else if(spinG2.getSelectedItemPosition() == 1) utils.modSwitch(vtxt4, b_val);
-					else utils.modSwitch(vtxt5, b_val);
+					setControlModel(name, i_val);
+					utils.modNumber(vtxtArr[index], i_val);
+					editNums.setText("");
+					break;
+				case R.id.dev_btn_bool_sett:
+					name = (String) spinBools.getSelectedItem();
+					index = Arrays.asList(Control.validSettings).indexOf(name);
+					b_val = swBools.isChecked();
+					
+					setControlModel(name, b_val);
+					utils.modSwitch(vtxtArr[index], b_val);
+					editNums.setText("");
 					break; //TODO bt code
+				case R.id.dev_btn_update:
+					//TODO Send bt signal
+					break;
+				case R.id.dev_btn_reset:
+					Hub.dataModel.reset();
+					break;
 //				case R.id.dev_button_bt_discover:
 //					btAdapter.startDiscovery();
 //					break;
@@ -203,15 +195,17 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 //					break;
 //				case R.id.dev_button_bt_write:
 //					break;
-				case R.id.dev_button_return:
+				case R.id.dev_btn_return:
 					finish();
 					break;
 			}
 		};
 		
-		buttonG1.setOnClickListener(onClickListener);
-		buttonG2.setOnClickListener(onClickListener);
-		buttonReturn.setOnClickListener(onClickListener);
+		btnNums.setOnClickListener(onClickListener);
+		btnBools.setOnClickListener(onClickListener);
+		btnUpdate.setOnClickListener(onClickListener);
+		btnReset.setOnClickListener(onClickListener);
+		btnReturn.setOnClickListener(onClickListener);
 	}
 	
 	//TODO bt code
@@ -236,14 +230,9 @@ public class Dev extends AppCompatActivity implements BluetoothService.OnPassBtD
 //		spinBt.setOnItemSelectedListener(onItemSelectedListener);
 //	}
 	
-	private void setModel(String setting, Object value) {
-		if(value instanceof Integer) {
-			model.put(setting, (int) value);
-		} else if(value instanceof Boolean) {
-			model.put(setting, (boolean) value);
-		} else {
-			Log.w(TAG, "Model not set");
-		}
+	private void setControlModel(String setting, Object value) {
+		Hub.dataModel.put(setting, value);
+		Log.i(TAG, "Control model modified.");
 	}
 	
 	// Create a BroadcastReceiver for ACTION_FOUND

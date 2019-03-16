@@ -7,45 +7,44 @@
     android:layout_height="match_parent">
 
     <Spinner
-        android:id="@+id/dev_spin_sett_g1"
+        android:id="@+id/dev_spin_num_setts"
         android:layout_width="154dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g1"
+        app:layout_constraintBottom_toBottomOf="@+id/dev_btn_num_sett"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g1"/>
+        app:layout_constraintTop_toTopOf="@+id/dev_btn_num_sett"/>
 
     <Spinner
-        android:id="@+id/dev_spin_sett_g2"
+        android:id="@+id/dev_spin_bool_setts"
         android:layout_width="154dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g2"
+        app:layout_constraintBottom_toBottomOf="@+id/dev_btn_bool_sett"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g2"/>
+        app:layout_constraintTop_toTopOf="@+id/dev_btn_bool_sett"/>
 
     <EditText
-        android:id="@+id/dev_edit_sett_g1"
+        android:id="@+id/dev_edit_num_sett"
         android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:ems="10"
-        android:hint="@string/precision_range_100"
         android:imeOptions="actionDone"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g1"
-        app:layout_constraintEnd_toStartOf="@+id/dev_button_sett_g1"
-        app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g1"/>
+        app:layout_constraintBottom_toBottomOf="@+id/dev_btn_num_sett"
+        app:layout_constraintEnd_toStartOf="@+id/dev_btn_num_sett"
+        app:layout_constraintTop_toTopOf="@+id/dev_btn_num_sett"/>
 
     <Switch
-        android:id="@+id/dev_switch_sett_g2"
+        android:id="@+id/dev_switch_bool_sett"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -53,13 +52,13 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_button_sett_g2"
-        app:layout_constraintEnd_toStartOf="@+id/dev_button_sett_g2"
-        app:layout_constraintStart_toEndOf="@+id/dev_spin_sett_g2"
-        app:layout_constraintTop_toTopOf="@+id/dev_button_sett_g2"/>
+        app:layout_constraintBottom_toBottomOf="@+id/dev_btn_bool_sett"
+        app:layout_constraintEnd_toStartOf="@+id/dev_btn_bool_sett"
+        app:layout_constraintStart_toEndOf="@+id/dev_spin_bool_setts"
+        app:layout_constraintTop_toTopOf="@+id/dev_btn_bool_sett"/>
 
     <Button
-        android:id="@+id/dev_button_sett_g1"
+        android:id="@+id/dev_btn_num_sett"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -70,7 +69,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:id="@+id/dev_button_sett_g2"
+        android:id="@+id/dev_btn_bool_sett"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -80,7 +79,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dev_button_sett_g1"/>
+        app:layout_constraintTop_toBottomOf="@+id/dev_btn_num_sett"/>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -88,18 +87,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="322dp"/>
-
-    <Button
-        android:id="@+id/dev_button_return"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/return_to_prev_act"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/dev_vtxt_sett_sensor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dev_vtxt_sett_gpsy"/>
 
     <TextView
         android:id="@+id/dev_txt_sett_speed"
@@ -297,7 +284,7 @@
         app:layout_constraintTop_toBottomOf="@+id/dev_vtxt_sett_auto"/>
 
     <Button
-        android:id="@+id/dev_button_update"
+        android:id="@+id/dev_btn_update"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -305,13 +292,13 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/update"
-        app:layout_constraintBottom_toTopOf="@+id/dev_button_reset"
+        app:layout_constraintBottom_toTopOf="@+id/dev_btn_reset"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dev_vtxt_sett_gpsy"
         app:layout_constraintTop_toTopOf="@+id/guideline2"/>
 
     <Button
-        android:id="@+id/dev_button_reset"
+        android:id="@+id/dev_btn_reset"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -319,9 +306,21 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/reset"
-        app:layout_constraintBottom_toTopOf="@+id/dev_button_return"
+        app:layout_constraintBottom_toTopOf="@+id/dev_btn_return"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/dev_vtxt_sett_gpsy"
         app:layout_constraintTop_toTopOf="@+id/dev_vtxt_sett_accelz"/>
+
+    <Button
+        android:id="@+id/dev_btn_return"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/return_to_prev_act"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/dev_vtxt_sett_sensor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dev_vtxt_sett_gpsy"/>
 
 </android.support.constraint.ConstraintLayout>

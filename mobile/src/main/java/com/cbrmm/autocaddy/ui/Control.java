@@ -6,21 +6,32 @@ import android.os.Bundle;
 import com.cbrmm.autocaddy.R;
 import com.cbrmm.autocaddy.fragments.ControlDataFragment;
 import com.cbrmm.autocaddy.fragments.ControlSchemeFragment;
-import com.cbrmm.autocaddy.util.Data;
 import com.cbrmm.autocaddy.util.FragUtils;
 
 
 public class Control extends AppCompatActivity implements FragUtils {
 	
-	public static final String[] validSettings = {"Speed", "Turn", "XAccelerometer", "YAccelerometer", "ZAccelerometer", "XGPS", "YGPS", "Autonomous", "Sonic"};
+	private final String TAG = "Control";
+	
+	// Accessible list of valid settings
+	private static final String spd = "Speed";
+	
+	private static final String trn = "Turn";
+	private static final String xac = "XAccelerometer";
+	private static final String yac = "YAccelerometer";
+	private static final String zac = "ZAccelerometer";
+	private static final String xgs = "XGPS";
+	private static final String ygs = "YGPS";
+	private static final String atn = "Autonomous";
+	private static final String sns = "Sensor";
+	
+	public static final String[] validSettings = {spd, trn, xac, yac, zac, xgs, ygs, atn, sns};
 	public static final int[] validSettingsSize = {2, 2, 4, 4, 4, 8, 8, 1, 1};
 	
 	public static final String C_KEY__MODEL = "Primary Data Model";
 	
-	private ControlSchemeFragment fragmentCS;
-	private ControlDataFragment fragmentCD;
-	
-	protected static Data dataModel;
+	private ControlSchemeFragment fragCS;
+	private ControlDataFragment fragCD;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,61 +47,52 @@ public class Control extends AppCompatActivity implements FragUtils {
 	 * @param savedInstanceState - A Bundle containing the activity's previously saved state.
 	 */
 	private void initFragmentViews(Bundle savedInstanceState) {
-		Bundle defaults = getDefaultFragmentState();
 		if(savedInstanceState == null) {
-			fragmentCS = new ControlSchemeFragment();
-			fragmentCD = new ControlDataFragment();
+			fragCS = new ControlSchemeFragment();
+			fragCD = new ControlDataFragment();
 			
-			fragmentCS.setArguments(defaults);
-			fragmentCD.setArguments(defaults);
-			
-			setFragmentViewState(this, fragmentCS, R.id.control_scheme_container, true);
+			setFragmentViewState(this, fragCS, R.id.control_scheme_container, true);
 		}
 	}
 	
-	/**
-	 * Sets the default state of each fragment so that they can be displayed in each container
-	 * layout without crashing the app.
-	 * @return A new Bundle containing the default state of each fragment in this activity.
-	 */
 	@Override
 	public Bundle getDefaultFragmentState() {
-		Bundle args = new Bundle();
-		
-		initDataModel();
-		
-		//ControlScheme
-		//ControlData
-		args.putByteArray(dataModel.getName(), dataModel.getDataArr());
-		
-		return args;
+		return null;
 	}
 	
-	protected static Data initExternalData(String name) {
-		Data data = new Data(name);
-		
-		data.put(validSettings[0], 0);
-		data.put(validSettings[1], 0);
-		data.put(validSettings[2], false);
-		data.put(validSettings[3], false);
-		data.put(validSettings[4], false);
-		data.put(validSettings[5], false);
-		data.put(validSettings[6], false);
-		data.put(validSettings[7], false);
-		
-		return data;
+	public static String getValidSpeed() {
+		return spd;
 	}
 	
-	private void initDataModel() {
-		dataModel = new Data(C_KEY__MODEL);
-		
-		dataModel.put(validSettings[0], 0);
-		dataModel.put(validSettings[1], 0);
-		dataModel.put(validSettings[2], false);
-		dataModel.put(validSettings[3], false);
-		dataModel.put(validSettings[4], false);
-		dataModel.put(validSettings[5], false);
-		dataModel.put(validSettings[6], false);
-		dataModel.put(validSettings[7], false);
+	public static String getValidTurn() {
+		return trn;
+	}
+	
+	public static String getValidXAccel() {
+		return xac;
+	}
+	
+	public static String getValidYAccel() {
+		return yac;
+	}
+	
+	public static String getValidZAccel() {
+		return zac;
+	}
+	
+	public static String getValidXGps() {
+		return xgs;
+	}
+	
+	public static String getValidYGps() {
+		return ygs;
+	}
+	
+	public static String getValidAuto() {
+		return atn;
+	}
+	
+	public static String getValidSensor() {
+		return sns;
 	}
 }

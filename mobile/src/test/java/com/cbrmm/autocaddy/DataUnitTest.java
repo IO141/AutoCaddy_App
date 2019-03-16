@@ -126,4 +126,15 @@ public class DataUnitTest {
 		
 		assertNotEquals(origData.getShort(validSettings[0]), defaultData.getShort(validSettings[0]));
 	}
+	
+	@Test
+	public void reset() {
+		assertNotNull(defaultData);
+		assertNotNull(assignData);
+		
+		assignData.put(validSettings[0], (short) 1);
+		assignData.reset();
+		
+		assertArrayEquals(assignData.getDataArr(), defaultData.getDataArr());
+	}
 }

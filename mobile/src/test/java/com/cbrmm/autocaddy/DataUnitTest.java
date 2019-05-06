@@ -1,5 +1,6 @@
 package com.cbrmm.autocaddy;
 
+import com.cbrmm.autocaddy.ui.Control;
 import com.cbrmm.autocaddy.util.Data;
 
 import org.junit.After;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 import static com.cbrmm.autocaddy.ui.Control.validSettings;
 import static junit.framework.Assert.assertFalse;
@@ -22,13 +24,12 @@ import static org.junit.Assert.assertNull;
 
 public class DataUnitTest {
 	
-	private Data nullData = null, initData = null, assignData = null, defaultData = null, origData = null;
-	private String initTitle = "Init", assignTitle = "Assign", defTitle = "Default", origTitle = "Original";
+	private Data nullData = null, assignData = null, defaultData = null, origData = null;
+	private String assignTitle = "Assign", defTitle = "Default", origTitle = "Original";
 	
 	@Before
 	public void setUp() {
 		nullData = null;
-		initData = null;
 		assignData = new Data(assignTitle);
 		defaultData = new Data(defTitle);
 		origData = new Data(origTitle);
@@ -37,12 +38,10 @@ public class DataUnitTest {
 	@After
 	public void tearDown() {
 		nullData = null;
-		initData = null;
 		assignData = null;
 		defaultData = null;
 		origData = null;
 		
-		initTitle = null;
 		assignTitle = null;
 		defTitle = null;
 		origTitle = null;
@@ -60,10 +59,20 @@ public class DataUnitTest {
 	}
 	
 	@Test
+	public void checkDataSz() {
+		assertNotNull(defaultData);
+		
+		int actualSz = defaultData.getDataArr().length - Control.validSettings.length * 2;
+		int expectedSz = IntStream.of(Control.validSettingsSize).sum();
+		
+		assertEquals(expectedSz, actualSz);
+	}
+	
+	@Test
 	public void assignData() {
 		assertNotNull(assignData);
 		assignData.put(validSettings[0], (short) 0);
-		assertEquals(0, assignData.getShort(validSettings[0]));
+		assertEquals(0, assignData.getInt(validSettings[0]));
 	}
 	
 	@Test
@@ -73,22 +82,44 @@ public class DataUnitTest {
 		assertArrayEquals(defaultData.getDataArr(), origData.getDataArr());
 	}
 	
-	@Test
-	public void getBadBoolData() {
-		assertNotNull(defaultData);
-		assertFalse(defaultData.getBool("Bad setting"));
-	}
+//	@Test
+//	public void getBadBoolData() {
+//		assertNotNull(defaultData);
+//		assertFalse(defaultData.getBool("Bad setting"));
+//	}
 	
 	@Test
 	public void getBadShortData() {
 		assertNotNull(defaultData);
-		assertTrue(defaultData.getShort("Bad setting") == 0);
+		assertTrue(defaultData.getInt("Bad setting") == 0);
 	}
 	
 	@Test
 	public void getBadFloatData() {
 		assertNotNull(defaultData);
 		assertTrue(defaultData.getFloat("Bad setting") == 0f);
+	}
+	
+	@Test
+	public void getDataArrForTransmission() {
+		assertNotNull(defaultData);
+		
+		byte[] arr = defaultData.getDataArr();
+		byte[] trans = defaultData.getDataArrForTransmission();
+		int lenDiff = trans.length - arr.length;
+		
+		byte[] transSigStart
+				= Arrays.copyOfRange(trans, 0, Data.getDataSignal().length);
+		byte[] transSigEnd
+				= Arrays.copyOfRange(trans, trans.length - Data.getDataSignal().length, trans.length);
+		byte[] transData
+				= Arrays.copyOfRange(trans, Data.getDataSignal().length, trans.length - Data.getDataSignal().length);
+		
+		assertEquals(lenDiff, Data.getDataSignal().length * 2);
+		
+		assertArrayEquals(Data.getDataSignal(), transSigStart);
+		assertArrayEquals(Data.getDataSignal(), transSigEnd);
+		assertArrayEquals(arr, transData);
 	}
 	
 	@Test
@@ -114,7 +145,7 @@ public class DataUnitTest {
 		assertNotNull(assignData);
 		assertNotNull(origData);
 		
-		assignData.put(validSettings[0], (short) 1);
+		assignData.put(validSettings[0], 1);
 		byte[] arr = assignData.getDataArr();
 		
 		defaultData.setDataArr(arr);
@@ -124,7 +155,7 @@ public class DataUnitTest {
 		boolean equal = Arrays.equals(arr, defaultData.getDataArr());
 		assertTrue(equal);
 		
-		assertNotEquals(origData.getShort(validSettings[0]), defaultData.getShort(validSettings[0]));
+		assertNotEquals(origData.getInt(validSettings[0]), defaultData.getInt(validSettings[0]));
 	}
 	
 	@Test

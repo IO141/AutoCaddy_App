@@ -9,7 +9,6 @@ import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.stream.IntStream;
 
 
 public class Data {
@@ -22,7 +21,7 @@ public class Data {
 	
 	private static final byte[] DATA_SIGNAL = toBytes(new char[] {'A', 'C'});
 	
-	private final int SIGNAL_LENGTH = 4; //DATA_SIGNAL.len + first-two-chars-of-a-key.len = 2 + 2
+	private final int SIGNAL_LENGTH = 2; //DATA_SIGNAL.len + first-two-chars-of-a-key.len = 2 + 2
 	
 	private byte[][] data;
 	private int dataLen;
@@ -53,8 +52,8 @@ public class Data {
 			keyChar = toBytes(new char[] {keys[i].charAt(0), keys[i].charAt(1)});
 			this.data[i] = new byte[SIGNAL_LENGTH + keySizes[i]];
 			this.dataLen += this.data[i].length;
-			System.arraycopy(DATA_SIGNAL, 0, this.data[i], 0, DATA_SIGNAL.length);
-			System.arraycopy(keyChar, 0, this.data[i], DATA_SIGNAL.length, keyChar.length);
+//			System.arraycopy(DATA_SIGNAL, 0, this.data[i], 0, DATA_SIGNAL.length);
+			System.arraycopy(keyChar, 0, this.data[i], 0, keyChar.length);
 		}
 	}
 	
@@ -62,7 +61,7 @@ public class Data {
 	 * Puts a new value for a setting in the data array, overwriting the previous
 	 * one.
 	 * @param setting The name of the setting whose value is being changed.
-	 * @param value The new value of the setting. If not of type Boolean, Short,
+	 * @param value The new value of the setting. If not of type Boolean, Int,
 	 * Float, or Double, no value will be written.
 	 */
 	public void put(String setting, Object value) {
@@ -89,8 +88,8 @@ public class Data {
 		byte[] bytes;
 		if(value instanceof Boolean) {
 			bytes = toBytes((boolean) value);
-		} else if(value instanceof Short) {
-			bytes = toBytes((short) value);
+		} else if(value instanceof Integer) {
+			bytes = toBytes((int) value);
 		} else if(value instanceof Float) {
 			bytes = toBytes((float) value);
 		} else if(value instanceof Double) {
@@ -116,6 +115,37 @@ public class Data {
 		return arr;
 	}
 	
+	public byte[] getDataArrForTransmission() { //TODO commit + add to tests
+		byte[] arr = new byte[DATA_SIGNAL.length * 2 + dataLen];
+		byte[] dataArr = getDataArr();
+		
+		System.arraycopy(DATA_SIGNAL, 0, arr, 0, DATA_SIGNAL.length);
+		System.arraycopy(dataArr, 0, arr, DATA_SIGNAL.length, dataArr.length);
+		System.arraycopy(DATA_SIGNAL, 0, arr, arr.length - DATA_SIGNAL.length, DATA_SIGNAL.length);
+		
+		return arr;
+	}
+	
+	public String getDataArrForTransmissionString() {
+		String spd = String.valueOf(getInt(Control.validSettings[0]));
+		String xg  = String.valueOf(getDouble(Control.validSettings[1]));
+		String yg  = String.valueOf(getDouble(Control.validSettings[2]));
+		String acl = String.valueOf(getDouble(Control.validSettings[3]));
+		String axg = String.valueOf(getDouble(Control.validSettings[4]));
+		String ayg = String.valueOf(getDouble(Control.validSettings[5]));
+		String aag = String.valueOf(getDouble(Control.validSettings[6]));
+		
+		return new String(DATA_SIGNAL) + '\0'
+				+ Control.validSettings[0].substring(0, 2)  + '\0' + spd + '\0'
+				+ Control.validSettings[1].substring(0, 2)  + '\0' + xg  + '\0'
+				+ Control.validSettings[2].substring(0, 2)  + '\0' + yg  + '\0'
+				+ Control.validSettings[3].substring(0, 2)  + '\0' + acl + '\0'
+				+ Control.validSettings[4].substring(0, 2)  + '\0' + axg + '\0'
+				+ Control.validSettings[5].substring(0, 2)  + '\0' + ayg + '\0'
+				+ Control.validSettings[6].substring(0, 2)  + '\0' + aag + '\0'
+				+ new String(DATA_SIGNAL) + '\0';
+	}
+	
 	/**
 	 * Overwrites the internal data array using an external 1D byte array.
 	 * This method is safe: only values are overwritten so if the contents of the
@@ -131,53 +161,49 @@ public class Data {
 		}
 		
 		int k = 0;
-		byte[] tempArr, signalNew, signalOld = new byte[] {data[0][0], data[0][1], data[0][2], data[0][3]};
+		byte[] tempArr;
 		for(int i = 0; i < data.length; i++) {
-			signalNew = new byte[] {dataArr[k], dataArr[k + 1], dataArr[k + 2], dataArr[k + 3]};
-			if(!Arrays.equals(signalOld, signalNew)) put(keys[i], 0);
-			else {
-				tempArr = new byte[data[i].length - SIGNAL_LENGTH];
-				for(int j = 0; j < data[i].length; j++, k++) {
-					if(j < SIGNAL_LENGTH) continue;
-					tempArr[j-SIGNAL_LENGTH] = dataArr[k];
-				}
-				if(tempArr.length == 1) {
-					put(keys[i], toBool(tempArr));
-				} else if(tempArr.length == 2) {
-					put(keys[i], toShort(tempArr));
-				} else if(tempArr.length == 4) {
-					put(keys[i], toFloat(tempArr));
-				} else if(tempArr.length == 8) {
-					put(keys[i], toDouble(tempArr));
-				}
+			tempArr = new byte[data[i].length - SIGNAL_LENGTH];
+			for(int j = 0; j < data[i].length; j++, k++) {
+				if(j < SIGNAL_LENGTH) continue;
+				tempArr[j-SIGNAL_LENGTH] = dataArr[k];
+			}
+			if(tempArr.length == 1) {
+				put(keys[i], toBool(tempArr));
+			} else if(tempArr.length == Control.getSzInt()) {
+				put(keys[i], toInt(tempArr));
+			} else if(tempArr.length == Control.getSzFloat()) {
+				put(keys[i], toFloat(tempArr));
+			} else if(tempArr.length == Control.getSzDouble()) {
+				put(keys[i], toDouble(tempArr));
 			}
 		}
 	}
 	
-	/**
-	 * Gets the boolean value of a setting.
-	 * @param setting The name of the setting whose value is returned.
-	 * @return The boolean value of the setting. Returns false if the setting does not
-	 * have a boolean value or if it does not exist.
-	 */
-	public boolean getBool(String setting) {
-		if(!Arrays.asList(keys).contains(setting)) {
-			Log.e(TAG, "Invalid setting.", new IllegalArgumentException());
-			return false;
-		}
-		
-		int index = Arrays.asList(keys).indexOf(setting);
-		return this.data[index].length - SIGNAL_LENGTH == keySizes.length
-				&& toBool(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
-	}
+//	/**
+//	 * Gets the boolean value of a setting.
+//	 * @param setting The name of the setting whose value is returned.
+//	 * @return The boolean value of the setting. Returns false if the setting does not
+//	 * have a boolean value or if it does not exist.
+//	 */
+//	public boolean getBool(String setting) {
+//		if(!Arrays.asList(keys).contains(setting)) {
+//			Log.e(TAG, "Invalid setting.", new IllegalArgumentException());
+//			return false;
+//		}
+//
+//		int index = Arrays.asList(keys).indexOf(setting);
+//		return this.data[index].length - SIGNAL_LENGTH == keySizes[index]
+//				&& toBool(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
+//	}
 	
 	/**
-	 * Gets the short value of a setting.
+	 * Gets the int value of a setting.
 	 * @param setting The name of the setting whose value is returned.
-	 * @return The short value of the setting. Returns 0 if the setting does not have
-	 * a short value or if it does not exist.
+	 * @return The int value of the setting. Returns 0 if the setting does not have
+	 * a int value or if it does not exist.
 	 */
-	public short getShort(String setting) {
+	public int getInt(String setting) {
 		if(!Arrays.asList(keys).contains(setting)) {
 			Log.e(TAG, "Invalid setting.", new IllegalArgumentException());
 			return 0;
@@ -185,7 +211,7 @@ public class Data {
 		
 		int index = Arrays.asList(keys).indexOf(setting);
 		if(this.data[index].length - SIGNAL_LENGTH != keySizes[index]) return 0;
-		return toShort(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
+		return toInt(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
 	}
 	
 	/**
@@ -201,7 +227,7 @@ public class Data {
 		}
 		
 		int index = Arrays.asList(keys).indexOf(setting);
-		if(this.data[index].length - SIGNAL_LENGTH != keySizes.length) return 0f;
+		if(this.data[index].length - SIGNAL_LENGTH != keySizes[index]) return 0f;
 		return toFloat(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
 	}
 	
@@ -218,7 +244,7 @@ public class Data {
 		}
 		
 		int index = Arrays.asList(keys).indexOf(setting);
-		if(this.data[index].length - SIGNAL_LENGTH != keySizes.length) return 0f;
+		if(this.data[index].length - SIGNAL_LENGTH != keySizes[index]) return 0f;
 		return toDouble(Arrays.copyOfRange(this.data[index], SIGNAL_LENGTH, this.data[index].length));
 	}
 	
@@ -228,6 +254,10 @@ public class Data {
 	 */
 	public String getName() {
 		return this.name;
+	}
+	
+	public static byte[] getDataSignal() {
+		return DATA_SIGNAL;
 	}
 	
 	public void reset() {
@@ -254,16 +284,16 @@ public class Data {
 	 */
 	private static byte[] toBytes(boolean bool) {
 		byte val = (byte) (bool ? 1:0);
-		return ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).put(val).array();
+		return ByteBuffer.allocate(Control.getSzBool()).order(ByteOrder.BIG_ENDIAN).put(val).array();
 	}
 	
 	/**
-	 * Converts a short into an array of bytes.
-	 * @param num The short to be converted.
+	 * Converts a int into an array of bytes.
+	 * @param num The int to be converted.
 	 * @return A byte array representation of num.
 	 */
-	private static byte[] toBytes(short num) {
-		return ByteBuffer.allocate(2).order(ByteOrder.LITTLE_ENDIAN).putShort(num).array();
+	private static byte[] toBytes(int num) {
+		return ByteBuffer.allocate(Control.getSzInt()).order(ByteOrder.BIG_ENDIAN).putInt(num).array();
 	}
 	
 	/**
@@ -272,7 +302,7 @@ public class Data {
 	 * @return A byte array representation of num.
 	 */
 	private static byte[] toBytes(float num) {
-		return ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN).putFloat(num).array();
+		return ByteBuffer.allocate(Control.getSzFloat()).order(ByteOrder.BIG_ENDIAN).putFloat(num).array();
 	}
 	
 	/**
@@ -281,7 +311,7 @@ public class Data {
 	 * @return A byte array representation of num.
 	 */
 	private static byte[] toBytes(double num) {
-		return ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN).putDouble(num).array();
+		return ByteBuffer.allocate(Control.getSzDouble()).order(ByteOrder.BIG_ENDIAN).putDouble(num).array();
 	}
 	
 	/**
@@ -290,7 +320,7 @@ public class Data {
 	 * @return A boolean representation of bytes.
 	 */
 	private static boolean toBool(byte[] bytes) {
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).get() == 1;
+		return ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN).get() == 1;
 	}
 	
 	/**
@@ -303,12 +333,12 @@ public class Data {
 	}
 	
 	/**
-	 * Converts a byte array into a short.
+	 * Converts a byte array into a int.
 	 * @param bytes The byte array to be converted.
-	 * @return A short representation of bytes.
+	 * @return A int representation of bytes.
 	 */
-	private static short toShort(byte[] bytes) {
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getShort();
+	private static int toInt(byte[] bytes) {
+		return ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN).getInt();
 	}
 	
 	/**
@@ -317,7 +347,7 @@ public class Data {
 	 * @return A float representation of bytes.
 	 */
 	private static float toFloat(byte[] bytes) {
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getFloat();
+		return ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN).getFloat();
 	}
 	
 	/**
@@ -326,7 +356,7 @@ public class Data {
 	 * @return A double representation of bytes.
 	 */
 	private static double toDouble(byte[] bytes) {
-		return ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN).getDouble();
+		return ByteBuffer.wrap(bytes).order(ByteOrder.BIG_ENDIAN).getDouble();
 	}
 	
 	@Override

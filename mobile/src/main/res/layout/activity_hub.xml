@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
     tools:context=".ui.Hub">
 
     <ImageView
@@ -17,61 +18,77 @@
         android:contentDescription="@string/hub_title_desc"
         android:scaleType="fitCenter"
         android:src="@drawable/title"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <Button
-        android:id="@+id/btn_connect"
+        android:id="@+id/hub_btn_connect"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/button_connect"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btn_dev"
-        app:layout_constraintStart_toStartOf="@+id/btn_dev"
-        app:layout_constraintTop_toBottomOf="@+id/hub_title"
-        app:layout_constraintVertical_bias="0.19999999"/>
+        app:layout_constraintBottom_toTopOf="@+id/hub_btn_help"
+        app:layout_constraintEnd_toEndOf="@+id/hub_btn_dev"
+        app:layout_constraintStart_toStartOf="@+id/hub_btn_dev"
+        app:layout_constraintTop_toBottomOf="@+id/hub_subtitle"
+        app:layout_constraintVertical_bias="0.45"/>
 
     <Button
-        android:id="@+id/btn_help"
+        android:id="@+id/hub_btn_help"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/button_help"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/btn_dev"
-        app:layout_constraintStart_toStartOf="@+id/btn_dev"
-        app:layout_constraintTop_toBottomOf="@+id/btn_connect"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hub_btn_connect"/>
 
     <Button
-        android:id="@+id/btn_dev"
+        android:id="@+id/hub_btn_dev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="64dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
         android:text="@string/button_dev"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_help"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintTop_toBottomOf="@+id/hub_btn_connect"/>
 
     <TextView
-        android:id="@+id/txt_dev_version"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:id="@+id/hub_subtitle"
+        android:layout_width="244dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="@string/development_info"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_marginTop="8dp"
+        android:text="Your personal AutoCaddy assistant"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hub_title"/>
+
+    <TextView
+        android:id="@+id/hub_title"
+        android:layout_width="361dp"
+        android:layout_height="137dp"
+        android:text="AutoCaddy\nCompanion"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textColor="@android:color/black"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        android:typeface="serif"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="8dp"/>
 
 </android.support.constraint.ConstraintLayout>

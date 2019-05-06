@@ -30,7 +30,7 @@ public class ControlSchemeFragment extends BaseControlFragment {
 	@BindView(R.id.cs_rb_holes) RadioButton rbHoles;
 	@BindView(R.id.cs_rb_follow) RadioButton rbFollow;
 	
-	@BindView(R.id.btn_go) Button btnGo;
+	@BindView(R.id.cs_btn_go) Button btnGo;
 	
 	@Override
 	protected int getLayoutId() {
@@ -63,19 +63,19 @@ public class ControlSchemeFragment extends BaseControlFragment {
 		CompoundButton.OnCheckedChangeListener mOnCheckedChangeListener = (cb, b) -> {
 			switch(cb.getId()) {
 				case R.id.cs_rb_slow:
-					setControlModel(Control.getValidSpeed(), 20);
+					setControlModel(Control.getSpeedName(), 20);
 					break;
 				case R.id.cs_rb_medium:
-					setControlModel(Control.getValidSpeed(), 50);
+					setControlModel(Control.getSpeedName(), 50);
 					break;
 				case R.id.cs_rb_fast:
-					setControlModel(Control.getValidSpeed(), 80);
+					setControlModel(Control.getSpeedName(), 80);
 					break;
 				case R.id.cs_rb_holes:
-					setControlModel(Control.getValidAuto(), false);
+//					setControlModel(Control.getNameAuto(), false);
 					break;
 				case R.id.cs_rb_follow:
-					setControlModel(Control.getValidAuto(), true);
+//					setControlModel(Control.getNameAuto(), true);
 					break;
 			}
 		};
@@ -95,8 +95,8 @@ public class ControlSchemeFragment extends BaseControlFragment {
 	 * the AutoCaddy perform as advertised.
 	 */
 	private void initModel() {
-		if(rgSpeed.getCheckedRadioButtonId() == -1) setControlModel(Control.getValidSpeed(), 50);
-		if(rgAuto.getCheckedRadioButtonId() == -1) setControlModel(Control.getValidAuto(), true);
+		if(rgSpeed.getCheckedRadioButtonId() == -1) setControlModel(Control.getSpeedName(), 50);
+//		if(rgAuto.getCheckedRadioButtonId() == -1) setControlModel(Control.getNameAuto(), true);
 	}
 	
 	/**

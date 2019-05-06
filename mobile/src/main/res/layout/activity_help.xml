@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
 
 
     <LinearLayout
@@ -16,7 +17,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="128dp"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -24,27 +25,31 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:text="@string/ac_phone_num_help"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="24sp"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:text="@string/ac_phone_num"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="18sp"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:text="@string/ac_email_help"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="24sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ac_email"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textSize="18sp"/>
     </LinearLayout>
 
     <Button
@@ -90,56 +95,45 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="@string/txt_help_Q1"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/txt_help_A1"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@string/txt_help_Q2"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/txt_help_A2"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="@string/txt_help_Q3"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_help_A2"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="@string/txt_help_A3"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
-                android:text="@string/txt_help_Q4"
-                android:textAlignment="center"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/txt_help_A4"
-                android:textAlignment="center"/>
+                android:textAlignment="textStart"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"/>
 
         </LinearLayout>
 

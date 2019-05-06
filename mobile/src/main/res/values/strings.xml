@@ -1,9 +1,9 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">AutoCaddy Control</string>
 
     <string name="hub_title_desc">AutoCaddy Control</string>
 
-    <string name="button_connect">Connect</string>
+    <string name="button_connect"> Connect!</string>
     <string name="button_disconnect">Disonnect</string>
     <string name="button_help">Help</string>
     <string name="button_return">Return</string>
@@ -13,15 +13,13 @@
 
     <string name="spinner_schemes">Control Schemes</string>
 
-    <string name="txt_help_Q1">What is?</string>
-    <string name="txt_help_Q2">What do?</string>
-    <string name="txt_help_Q3">What now?</string>
-    <string name="txt_help_Q4">What next?</string>
+    <string name="txt_help_Q1">What is this app for?</string>
+    <string name="txt_help_Q3">How do I start?</string>
 
-    <string name="txt_help_A1">AutoCaddy control application.</string>
-    <string name="txt_help_A2">Control an AutoCaddy.</string>
-    <string name="txt_help_A3">Press CONNECT.</string>
-    <string name="txt_help_A4">Select a control scheme.</string>
+    <string name="txt_help_A1">This application provides an easy interface between you and your AutoCaddy.</string>
+    <string name="txt_help_A2">Just two simple steps:</string>
+    <string name="txt_help_A3">1: Pair your device with the AutoCaddy \n(HC-06 in your Android\'s Bluetooth pairing settings).
+        \n\n2: Press CONNECT on the home screen.</string>
 
     <string name="prec_settings">Precision Settings</string>
     <string name="bin_settings">Binary Settings</string>
@@ -32,10 +30,11 @@
     <string name="sett_accelx">Accelerometer X</string>
     <string name="sett_accely">Accelerometer Y</string>
     <string name="sett_accelz">Accelerometer Z</string>
-    <string name="sett_gpsx">GPS X</string>
-    <string name="sett_gpsy">GPS Y</string>
-    <string name="sett_auto">Autonomous</string>
-    <string name="sett_sensor">Sensor</string>
+    <string name="sett_gpsx">Lat</string>
+    <string name="sett_gpsy">Long</string>
+    <string name="sett_avggpsx">Avg Lat</string>
+    <string name="sett_avggpsy">Avg Long</string>
+    <string name="sett_acc">Acc</string>
 
     <string name="development_info">Development Build v0.6</string>
     <string name="go">Go</string>
@@ -48,10 +47,35 @@
     <string name="sett_off">OFF</string>
     <string name="sett_on">ON</string>
     <string name="sett_null">0</string>
-    <string name="precision_range_100">0-100</string>
+    <string name="precision_range_100">0–1s00</string>
     <string name="set">Set</string>
-    <string name="return_to_prev_act">Back to Hub</string>
+    <string name="return_to_prev_act">Back</string>
     <string name="update">Update</string>
     <string name="reset">Reset</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+
+
+    <!--  BluetoothComm -->
+    <string name="bc_send">Send</string>
+    <string name="bc_not_connected">You are not connected to a device</string>
+    <string name="bc_bt_not_enabled">Bluetooth was not enabled.</string>
+    <string name="bc_connecting">Connecting…</string>
+    <string name="bc_connected_to">Connected to <xliff:g id="device_name">%1$s</xliff:g></string>
+    <!--<string name="bc_title_not_connected">Not connected</string>-->
+
+    <!--  DeviceListActivity -->
+    <string name="dl_scanning">Scanning for devices…</string>
+    <string name="dl_select_device">select a device to connect</string>
+    <string name="dl_none_paired">No devices have been paired</string>
+    <string name="dl_none_found">No devices found</string>
+    <string name="dl_paired_devices">Paired Devices</string>
+    <string name="dl_other_devices">Other Available Devices</string>
+    <string name="dl_scan">Scan for devices</string>
+
+    <!-- Options Menu -->
+    <string name="secure_connect">Connect a device - Secure</string>
+    <string name="insecure_connect">Connect a device - Insecure</string>
+    <string name="discoverable">Make discoverable</string>
 
 </resources>
